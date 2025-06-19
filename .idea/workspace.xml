@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/how-it-works.php" beforeDir="false" afterPath="$PROJECT_DIR$/how-it-works.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/contact.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +69,7 @@
       <workItem from="1750211316226" duration="2945000" />
       <workItem from="1750256427012" duration="526000" />
       <workItem from="1750256969443" duration="4386000" />
-      <workItem from="1750338370740" duration="4871000" />
+      <workItem from="1750338370740" duration="6337000" />
     </task>
     <servers />
   </component>
@@ -731,7 +733,7 @@
         <entry key="$PROJECT_DIR$/emergency-index.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/forgot-password.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/gibson-mcp-status.php" value="1750002280994" />
-        <entry key="$PROJECT_DIR$/how-it-works.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/how-it-works.php" value="1750343477531" />
         <entry key="$PROJECT_DIR$/index-gibson-safe.php" value="1750214018199" />
         <entry key="$PROJECT_DIR$/index-no-gibson.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/index-session-safe.php" value="1750002280994" />
@@ -865,9 +867,9 @@
         <entry key="$PROJECT_DIR$/webhook.php" value="1750002280994" />
       </map>
     </option>
-    <option name="lastCommitHash" value="1750341978837" />
-    <option name="lastIndexTimestamp" value="1750341976624" />
-    <option name="repoAccumulatedChanges" value="16" />
+    <option name="lastCommitHash" value="1750343502235" />
+    <option name="lastIndexTimestamp" value="1750343477531" />
+    <option name="repoAccumulatedChanges" value="17" />
     <option name="repoTotalFiles" value="212" />
     <option name="repositoryId" value="d02980a0-0736-4d7a-8df6-cc9037715531" />
     <option name="state" value="FULLY_INDEXED" />
