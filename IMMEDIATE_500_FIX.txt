@@ -1,0 +1,34 @@
+🚨 IMMEDIATE 500 ERROR FIX 🚨
+
+STEP 1: Upload debug-500.php to your server
+STEP 2: Visit https://painter-near-me.co.uk/debug-500.php
+
+This will show you exactly what's causing the 500 error.
+
+QUICK FIXES TO TRY:
+
+FIX 1: Replace .htaccess with emergency version
+- Delete current .htaccess
+- Upload .htaccess-emergency as .htaccess
+
+FIX 2: Check file permissions
+- All .php files should be 644
+- All directories should be 755
+- project.env should be 600
+
+FIX 3: Most likely cause - missing directories
+Make sure these folders exist on your server:
+- core/
+- config/
+- assets/
+- uploads/
+- logs/
+
+FIX 4: If debug-500.php shows bootstrap.php error:
+The issue is likely a missing file or wrong path.
+
+EMERGENCY BYPASS:
+If nothing works, create a simple index.php:
+<?php echo "Site is loading..."; ?>
+
+This will at least stop the 500 error while we fix the main issue. 

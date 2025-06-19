@@ -1,0 +1,95 @@
+{
+    "painters": [
+        {
+            "id": 1,
+            "email": "john@brightpainting.co.uk",
+            "password_hash": "$2y$12$U4mVfa11j3DJ68t1IWs9Qe2PuIzSid69st\/5dtufL\/diS97tYPi\/y",
+            "company_name": "Bright Painting Solutions",
+            "contact_name": "John Smith",
+            "phone": "07700900123",
+            "location": "London, UK",
+            "services": [
+                "interior",
+                "exterior"
+            ],
+            "experience_years": 8,
+            "status": "active",
+            "insurance": "yes",
+            "created_at": "2024-01-15 10:30:00",
+            "updated_at": "2024-01-15 10:30:00"
+        },
+        {
+            "id": 2,
+            "email": "sarah@elitepainters.co.uk",
+            "password_hash": "$2y$12$JXbW8FHp6XggNKl93g0dnORW8KuWyRBmFwD6orm.84sRiKsOq.T4y",
+            "company_name": "Elite Painters Ltd",
+            "contact_name": "Sarah Johnson",
+            "phone": "07700900456",
+            "location": "Manchester, UK",
+            "services": [
+                "interior",
+                "commercial"
+            ],
+            "experience_years": 12,
+            "status": "active",
+            "insurance": "yes",
+            "created_at": "2024-01-10 14:20:00",
+            "updated_at": "2024-01-10 14:20:00"
+        }
+    ],
+    "leads": [],
+    "bids": [],
+    "sessions": [],
+    "admin_users": [
+        {
+            "id": 1,
+            "email": "admin@painter-near-me.co.uk",
+            "password_hash": "$2y$12$DhSzr6q46JKsaV5Mp0mroeudv.pLWjkCNJUjDjcDtfPmuQgZxZpWG",
+            "username": "admin",
+            "first_name": "System",
+            "last_name": "Administrator",
+            "role": "super_admin",
+            "status": "active",
+            "created_at": "2024-01-01 10:00:00",
+            "updated_at": "2024-01-01 10:00:00"
+        },
+        {
+            "id": 2,
+            "email": "admin@test.com",
+            "password_hash": "$2y$12$ZYTjIeZYf\/kW7mI5l0S9ZOmGb7vwvyKN8I8nkFxVeLTdepLup1vK6",
+            "username": "testadmin",
+            "first_name": "Test",
+            "last_name": "Admin",
+            "role": "admin",
+            "status": "active",
+            "created_at": "2024-01-01 10:00:00",
+            "updated_at": "2024-01-01 10:00:00"
+        },
+        {
+            "id": 3,
+            "email": "admin@localhost",
+            "password_hash": "$2y$12$ezTHp1gw4XlMhJavKdVyWO2Zcgx2ut5zkfLXyqB4hfCuNgPGjv8rO",
+            "username": "localadmin",
+            "first_name": "Local",
+            "last_name": "Admin",
+            "role": "admin",
+            "status": "active",
+            "created_at": "2024-01-01 10:00:00",
+            "updated_at": "2024-01-01 10:00:00"
+        }
+    ],
+    "customers": [
+        {
+            "id": 1,
+            "email": "customer@test.com",
+            "password_hash": "$2y$12$qrd0oobGMTC\/F3qipL30f.wZ5ZIHkJ5HGm0W9vkGOB9.9YWGRPpOu",
+            "first_name": "John",
+            "last_name": "Customer",
+            "phone": "07700900789",
+            "postcode": "SW1A 1AA",
+            "status": "active",
+            "created_at": "2024-01-15 09:00:00",
+            "updated_at": "2024-01-15 09:00:00"
+        }
+    ]
+}

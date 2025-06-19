@@ -1,0 +1,6 @@
+export GIBSON_API_KEY=gAAAAABoOTNz_6D8z73hv7LKSkBrHiDqeXv2M7BQXjhhaoi3_XmY8GdZ2IemamjopuBIxa6orFZJOaVW4B-mBz3i-LhWmRXZ4kggHFG_ONW0mrivFspj80Y=
+export GIBSON_API_URL=https://api.gibsonai.com
+export GIBSON_DATABASE_ID=painter_marketplace_production
+export GIBSON_PROJECT_ID=7ec950ec-b932-4dd6-b322-6ff35ff05fc6
+export GIBSON_PROJECT_NAME="Painter Marketplace Backend"
+export GIBSON_DEVELOPMENT_MODE=true 

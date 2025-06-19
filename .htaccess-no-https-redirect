@@ -1,0 +1,139 @@
+# Emergency Fix .htaccess for Painter Near Me
+# NO HTTPS redirect - hosting provider handles it
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Protect sensitive files
+<Files "project.env">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files ".env">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "composer.json">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "composer.lock">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Enhanced security headers
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "DENY"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header unset Server
+    Header unset X-Powered-By
+</IfModule>
+
+# Custom error pages
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php
+
+# URL Rewriting Rules - NO HTTPS REDIRECT
+<IfModule mod_rewrite.c>
+    # Admin routing
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^admin/([^/]+)/?$ admin-$1.php [L,QSA]
+    
+    # Assets routing
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^assets/(.+)$ serve-asset.php?file=$1 [L,QSA]
+    
+    # API routing
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^api/(.+)$ api/$1 [L,QSA]
+    
+    # Clean URLs
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^how-it-works/?$ how-it-works.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^contact/?$ contact.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^login/?$ login.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^register/?$ register.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^dashboard/?$ dashboard.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^profile/?$ profile.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^leads/?$ leads.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^my-bids/?$ my-bids.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^quote/?$ quote.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^post-job/?$ post-job.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^messaging/?$ messaging.php [L,QSA]
+    
+    # Lead routing
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^lead/([0-9]+)/?$ quote-bids.php?lead_id=$1 [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^bid/([0-9]+)/?$ bid.php?id=$1 [L,QSA]
+    
+    # Legal pages
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^privacy/?$ privacy-policy.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^terms/?$ terms.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^cookies/?$ cookie-policy.php [L,QSA]
+    
+    # Special pages
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^customer-dashboard/?$ customer-dashboard.php [L,QSA]
+    
+    # Default fallback
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/(favicon\.ico|robots\.txt|sitemap\.xml)$
+    RewriteRule . index.php [L]
+</IfModule>
+
+# Force UTF-8 encoding
+AddDefaultCharset UTF-8 

@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2yYBUssBlvqOR7Dk7sQTGjYMF77" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.zencoder-patch-add-chat-message-raw-content": "true",
+    "RunOnceActivity.zencoder-patch-chat-storage-migration": "true",
+    "RunOnceActivity.zencoder-patch-generate-chat-message-id": "true",
+    "RunOnceActivity.zencoder-patch-migrate-custom-instruction": "true",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/home/yns/Documents/production-ready-upload/production-ready-upload",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-WS-251.26094.131" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="" />
+      <created>1750001646563</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750001646563</updated>
+      <workItem from="1750001650560" duration="296000" />
+      <workItem from="1750001967328" duration="3008000" />
+      <workItem from="1750007994078" duration="1700000" />
+      <workItem from="1750159906470" duration="656000" />
+      <workItem from="1750160583622" duration="5021000" />
+      <workItem from="1750211277867" duration="4000" />
+      <workItem from="1750211316226" duration="2945000" />
+      <workItem from="1750256427012" duration="526000" />
+      <workItem from="1750256969443" duration="4386000" />
+      <workItem from="1750338370740" duration="4321000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="ai.zencoder.plugin.mcp">
+    <option name="internalToolsState" value="{&quot;fetch_webpage&quot;:true,&quot;web_search&quot;:true,&quot;ExecuteShellCommand&quot;:true,&quot;file_search&quot;:true,&quot;str_replace_editor&quot;:true,&quot;fulltext_search&quot;:true,&quot;RequirementsTool&quot;:true}" />
+    <option name="libraryTools">
+      <map>
+        <entry key="agentql">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="agentrpc">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="aiven">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="apache iotdb">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="apify">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="apimatic mcp">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="astra db">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="aws kb retrieval">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="axiom">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="bankless onchain">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="bicscan">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="box">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="brave search">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="browserbase">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="chroma">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="circleci">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="clickhouse">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="cloudflare">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="codacy">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="codelogic">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="comet opik">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="convex">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="e2b">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="elasticsearch">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="everart">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="everything">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="exa">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="fetch">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="fibery">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="filesystem">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="financial datasets">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="firecrawl">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="fireproof">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="forevervm">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="git">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="gitee">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="github">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="gitlab">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="google drive">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="google maps">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="grafana">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="graphlit">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="greptimedb">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="heroku">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="hologres">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="hyperbrowser">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="ibm wxflows">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="inkeep">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="integration app">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="jetbrains">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="kagi search">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="langfuse prompt management">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="logfire">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="mailgun">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="make">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="meilisearch">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="memory">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="metoro">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="milvus">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="momento">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="motherduck">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="needle">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="neo4j">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="neon">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="notion">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="oceanbase">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="octagon">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="oxylabs">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="paddle">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="paypal">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="perplexity">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="playwright">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="postgresql">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="puppeteer">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="qdrant">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="ramp">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="raygun">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="redis">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="riza">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="screenshotone">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="search1api">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="semgrep">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="sentry">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="sequential thinking">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="singlestore">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="slack">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="sqlite">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="starrocks">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="stripe">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="tavily">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="thirdweb">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="time">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="tinybird">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="unifai">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="unstructured">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="vectorize">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="zapier">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+        <entry key="zenml">
+          <value>
+            <McpServerInfo />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="zencoderBackendTools">
+      <map>
+        <entry key="ExecuteShellCommand">
+          <value>
+            <McpServerInfo>
+              <option name="status">
+                <McpServerStatus />
+              </option>
+            </McpServerInfo>
+          </value>
+        </entry>
+        <entry key="RequirementsTool">
+          <value>
+            <McpServerInfo>
+              <option name="status">
+                <McpServerStatus />
+              </option>
+            </McpServerInfo>
+          </value>
+        </entry>
+        <entry key="fetch_webpage">
+          <value>
+            <McpServerInfo>
+              <option name="status">
+                <McpServerStatus />
+              </option>
+            </McpServerInfo>
+          </value>
+        </entry>
+        <entry key="str_replace_editor">
+          <value>
+            <McpServerInfo>
+              <option name="status">
+                <McpServerStatus />
+              </option>
+            </McpServerInfo>
+          </value>
+        </entry>
+        <entry key="web_search">
+          <value>
+            <McpServerInfo>
+              <option name="status">
+                <McpServerStatus />
+              </option>
+            </McpServerInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="ai.zencoder.plugin.rag.settings">
+    <option name="desiredChunkSizeBytes" value="4194304" />
+    <option name="forbiddenExtensions">
+      <set>
+        <option value=".log,.lock,.svg" />
+      </set>
+    </option>
+    <option name="pollingIntervalMs" value="60000" />
+    <option name="projectInfoUpdateThresholdPercentage" value="99" />
+    <option name="repoIndexingIntervalMs" value="300000" />
+  </component>
+  <component name="ai.zencoder.plugin.rag.state">
+    <option name="indexedFilesMap">
+      <map>
+        <entry key="$PROJECT_DIR$/.gibson-env" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/.htaccess" value="1750212818002" />
+        <entry key="$PROJECT_DIR$/.htaccess-emergency" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/.htaccess-fixed-for-live" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/.htaccess-minimal" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/.htaccess-no-https-redirect" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/.zencoder/.gitignore" value="1750263873232" />
+        <entry key="$PROJECT_DIR$/404.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/500.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/DEBUG_INSTRUCTIONS.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/DEPLOYMENT_INSTRUCTIONS.txt" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/EMERGENCY_FIX.txt" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/FINAL_500_FIX.txt" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/FIXED_bootstrap.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/HOMEPAGE_FIX.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/IMMEDIATE_500_FIX.txt" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/LIVE_DEPLOYMENT_FIX.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/QUOTE_WIZARD_DEBUG.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/TEST_RESULTS_SUMMARY.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-analytics.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-change-password.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-disk-cleanup.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-financial.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-leads.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-login.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-logout.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-manage-bids.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-manage-leads.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-manage-painters.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-notifications.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-payment-management.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-quality-control.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-setup.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-system-monitor.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/admin-system-test.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/api/payment-api.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/api/stripe-webhook.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/assets/css/admin-dashboard.css" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/assets/css/style.css" value="1750214018199" />
+        <entry key="$PROJECT_DIR$/assets/images/logo.svg" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/assets/images/save-money.svg" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/assets/images/save-time.svg" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/assets/images/trusted.svg" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/assets/js/main.js" value="1750338378471" />
+        <entry key="$PROJECT_DIR$/bid.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/bootstrap-fixed.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/bootstrap.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/check-roles.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/composer.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/composer.lock" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/comprehensive-test.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/config/database.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/config/email.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/config/gibson.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/config/gibson_schema.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/config/monitoring.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/config/production.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/config/sqlite_database.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/configs/painting.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/contact.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/cookie-policy.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/core/BidDatabaseService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/core/EmailNotificationService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/core/ErrorHandler.php" value="1750212818002" />
+        <entry key="$PROJECT_DIR$/core/GibsonAIService.php" value="1750338378471" />
+        <entry key="$PROJECT_DIR$/core/GibsonAuth.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/core/GibsonBidService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/core/GibsonDataAccess.php" value="1750212818002" />
+        <entry key="$PROJECT_DIR$/core/Mailer.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/core/MockGibsonAIService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/core/PaymentEmailNotificationService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/core/Step.php" value="1750338378471" />
+        <entry key="$PROJECT_DIR$/core/StripePaymentManager.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/core/UploadConfig.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/core/Validator.php" value="1750338378471" />
+        <entry key="$PROJECT_DIR$/core/Wizard.php" value="1750338977135" />
+        <entry key="$PROJECT_DIR$/create-customer-role.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/customer-dashboard.php" value="1750341976624" />
+        <entry key="$PROJECT_DIR$/dashboard.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/data/gibson_bids.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/data/local_leads.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/data/local_painters.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/data/mock_data.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/database/bids.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/database/gibson_tables.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/database/lead_payment_system.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/database/leads.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/database/migrate_add_assigned_painter_id.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/database/painter_bid_system.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/database/painters.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/debug-500.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/debug-homepage.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/deploy.sh" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/diagnostic.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/emergency-index.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/forgot-password.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/gibson-mcp-status.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/how-it-works.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/index-gibson-safe.php" value="1750214018199" />
+        <entry key="$PROJECT_DIR$/index-no-gibson.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/index-session-safe.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/index-simple.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/index.php" value="1750338977135" />
+        <entry key="$PROJECT_DIR$/lead-claim.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/leads.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/login.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/logout.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/messaging.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/my-bids.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/payment-management.js" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/post-job.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/privacy-policy.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/.gibson-env" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/403-troubleshooting.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/404.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/500.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/DEPLOYMENT_SUMMARY.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/PRODUCTION_DEPLOYMENT_CHECKLIST.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/PRODUCTION_SETUP.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/README.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-analytics.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-change-password.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-disk-cleanup.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-financial.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-leads.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-login.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-logout.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-manage-bids.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-manage-leads.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-manage-painters.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-notifications.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-payment-management.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-quality-control.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-setup.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-system-monitor.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/admin-system-test.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/api/payment-api.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/api/stripe-webhook.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/assets/css/admin-dashboard.css" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/assets/css/style.css" value="1750214018199" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/assets/images/logo.svg" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/assets/images/save-money.svg" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/assets/images/save-time.svg" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/assets/images/trusted.svg" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/bid.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/bootstrap.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/check-roles.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/composer.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/composer.lock" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/config/database.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/config/email.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/config/gibson.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/config/gibson_schema.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/config/monitoring.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/config/production.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/config/sqlite_database.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/configs/painting.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/contact.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/cookie-policy.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/BidDatabaseService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/EmailNotificationService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/ErrorHandler.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/GibsonAIService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/GibsonAuth.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/GibsonBidService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/GibsonDataAccess.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/Mailer.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/MockGibsonAIService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/PaymentEmailNotificationService.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/Step.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/StripePaymentManager.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/UploadConfig.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/Validator.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/core/Wizard.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/create-customer-role.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/create-test-admin.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/customer-dashboard.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/dashboard.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/data/gibson_bids.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/data/local_leads.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/data/local_painters.json" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/database/bids.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/database/gibson_tables.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/database/lead_payment_system.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/database/leads.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/database/migrate_add_assigned_painter_id.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/database/painter_bid_system.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/database/painters.sql" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/debug-live-deployment.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/debug-user-data.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/deploy.sh" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/fix-live-accounts.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/forgot-password.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/gibson-test-summary.md" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/how-it-works.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/index.php" value="1750214018199" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/initialize-live-schema.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/lead-claim.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/leads.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/login.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/logout.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/messaging.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/my-bids.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/payment-management.js" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/post-job.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/production-ready-upload/privacy-policy.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/profile.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/project.env" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/quote-bids.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/quote.php" value="1750212818002" />
+        <entry key="$PROJECT_DIR$/register.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/reset-password.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/security_enhancements.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/serve-asset.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/simple-test.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/steps/Step1_Postcode.php" value="1750338977135" />
+        <entry key="$PROJECT_DIR$/steps/Step2_RequestType.php" value="1750338977135" />
+        <entry key="$PROJECT_DIR$/steps/Step3_JobType.php" value="1750338977135" />
+        <entry key="$PROJECT_DIR$/steps/Step4_PropertyType.php" value="1750338977135" />
+        <entry key="$PROJECT_DIR$/steps/Step5_ProjectDescription.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/steps/Step6_ContactDetails.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/templates/footer.php" value="1750212818002" />
+        <entry key="$PROJECT_DIR$/templates/header.php" value="1750212818002" />
+        <entry key="$PROJECT_DIR$/templates/progress.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/templates/sidebar-admin.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/templates/sidebar-painter.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/terms.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/test.html" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/webhook.php" value="1750002280994" />
+      </map>
+    </option>
+    <option name="lastCommitHash" value="1750341978837" />
+    <option name="lastIndexTimestamp" value="1750341976624" />
+    <option name="repoAccumulatedChanges" value="16" />
+    <option name="repoTotalFiles" value="212" />
+    <option name="repositoryId" value="d02980a0-0736-4d7a-8df6-cc9037715531" />
+    <option name="state" value="FULLY_INDEXED" />
+  </component>
+</project>

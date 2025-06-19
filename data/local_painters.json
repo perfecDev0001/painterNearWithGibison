@@ -1,0 +1,54 @@
+[
+    {
+        "company_name": "Native Test Painting Co",
+        "email": "native.painter@example.com",
+        "phone": "07987654321",
+        "business_address": "456 Test Avenue, London, SW2B 2BB",
+        "services_offered": [
+            "interior_painting",
+            "exterior_painting"
+        ],
+        "service_areas": [
+            "London",
+            "Surrey"
+        ],
+        "years_experience": 15,
+        "profile_status": "approved",
+        "created_at": "2025-06-08 00:50:43",
+        "updated_at": "2025-06-08 00:50:43",
+        "uuid": "84d6dfb0-5b46-4c9a-be7f-d09e208b93e9",
+        "id": "local_6844de64498b8",
+        "storage_method": "local_json"
+    },
+    {
+        "company_name": "Test Painting Co",
+        "email": "painter@example.com",
+        "profile_status": "approved",
+        "created_at": "2025-06-08 00:55:04",
+        "updated_at": "2025-06-08 00:55:04",
+        "uuid": "370ebc26-676f-45e5-b7ba-37e1551344a3",
+        "id": "local_6844df68e6519",
+        "storage_method": "local_json"
+    },
+    {
+        "company_name": "Native Test Painting Co",
+        "email": "native.painter@example.com",
+        "phone": "07987654321",
+        "business_address": "456 Test Avenue, London, SW2B 2BB",
+        "services_offered": [
+            "interior_painting",
+            "exterior_painting"
+        ],
+        "service_areas": [
+            "London",
+            "Surrey"
+        ],
+        "years_experience": 15,
+        "profile_status": "approved",
+        "created_at": "2025-06-08 00:55:54",
+        "updated_at": "2025-06-08 00:55:54",
+        "uuid": "fc999b64-8b22-416f-bc2b-129955147865",
+        "id": "local_6844df9acf6a3",
+        "storage_method": "local_json"
+    }
+]

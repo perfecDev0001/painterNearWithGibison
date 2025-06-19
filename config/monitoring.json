@@ -1,0 +1,18 @@
+{
+    "health_check_endpoint": "\/admin-system-monitor.php",
+    "error_logging": {
+        "enabled": true,
+        "log_file": "logs\/error.log",
+        "log_level": "ERROR"
+    },
+    "performance_monitoring": {
+        "enabled": true,
+        "log_file": "logs\/system.log",
+        "slow_query_threshold": 1000
+    },
+    "uptime_monitoring": {
+        "enabled": true,
+        "check_interval": 300,
+        "alert_threshold": 99.5
+    }
+}

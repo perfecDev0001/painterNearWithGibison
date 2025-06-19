@@ -1,0 +1,20 @@
+🚨 IMMEDIATE EMERGENCY FIX 🚨
+
+UPLOAD THIS FILE IMMEDIATELY: bootstrap.php
+
+The redirect loop is caused by the forceHTTPS() function in bootstrap.php
+This has been DISABLED in the updated bootstrap.php file.
+
+STEPS:
+1. Upload the updated bootstrap.php file (replaces the old one)
+2. Upload the .htaccess-minimal file as .htaccess (replaces the old one)
+3. Wait 2-3 minutes
+4. Test the site
+
+This will completely stop the redirect loop.
+
+The hosting provider is handling HTTPS redirects automatically,
+so our PHP and .htaccess redirects were creating a conflict.
+
+✅ FIXED: bootstrap.php line 286 - forceHTTPS() disabled
+✅ FIXED: .htaccess-minimal - no HTTPS redirects 

@@ -1,0 +1,41 @@
+[2025-06-08 11:34:58] ERROR: Undefined array key "HTTP_HOST" in /Users/admin/Desktop/Projects/painer-near-me-20i/bootstrap.php on line 133 (IP: N/A, URL: CLI)
+[2025-06-08 11:34:58] ERROR: Undefined array key "REQUEST_URI" in /Users/admin/Desktop/Projects/painer-near-me-20i/bootstrap.php on line 133 (IP: N/A, URL: CLI)
+[2025-06-08 11:37:34] ERROR: Undefined array key "HTTP_HOST" in /Users/admin/Desktop/Projects/painer-near-me-20i/bootstrap.php on line 133 (IP: N/A, URL: CLI)
+[2025-06-08 11:37:34] ERROR: Undefined array key "REQUEST_URI" in /Users/admin/Desktop/Projects/painer-near-me-20i/bootstrap.php on line 133 (IP: N/A, URL: CLI)
+[08-Jun-2025 13:48:45 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
+[08-Jun-2025 13:48:45 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
+[08-Jun-2025 13:51:18 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
+[08-Jun-2025 13:51:18 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
+[2025-06-08 13:51:18] EXCEPTION: Call to undefined method Wizard::getCurrentStep() in /Users/admin/Desktop/Projects/painer-near-me-20i/index.php on line 25 (IP: 127.0.0.1, URL: /)
+Stack trace:
+#0 {main}
+[08-Jun-2025 13:51:26 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
+[08-Jun-2025 13:51:26 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
+[2025-06-08 13:51:26] EXCEPTION: Call to undefined method Wizard::getCurrentStep() in /Users/admin/Desktop/Projects/painer-near-me-20i/index.php on line 25 (IP: 127.0.0.1, URL: /how-it-works)
+Stack trace:
+#0 {main}
+[08-Jun-2025 14:09:43 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
+[08-Jun-2025 14:09:43 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
+[2025-06-08 14:09:43] EXCEPTION: Call to undefined method Wizard::getCurrentStep() in /Users/admin/Desktop/Projects/painer-near-me-20i/index.php on line 25 (IP: 127.0.0.1, URL: /admin/login)
+Stack trace:
+#0 {main}
+[08-Jun-2025 14:09:51 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
+[08-Jun-2025 14:09:51 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
+[2025-06-08 14:09:51] EXCEPTION: Call to undefined method Wizard::getCurrentStep() in /Users/admin/Desktop/Projects/painer-near-me-20i/index.php on line 25 (IP: 127.0.0.1, URL: /admin/analytics)
+Stack trace:
+#0 {main}
+[08-Jun-2025 14:09:57 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
+[08-Jun-2025 14:09:57 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
+[2025-06-08 14:09:57] EXCEPTION: Call to undefined method Wizard::getCurrentStep() in /Users/admin/Desktop/Projects/painer-near-me-20i/index.php on line 25 (IP: 127.0.0.1, URL: /how-it-works)
+Stack trace:
+#0 {main}
+[08-Jun-2025 14:10:58 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
+[08-Jun-2025 14:10:58 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
+[2025-06-08 14:10:58] EXCEPTION: Call to undefined method Wizard::getCurrentStep() in /Users/admin/Desktop/Projects/painer-near-me-20i/index.php on line 25 (IP: 127.0.0.1, URL: /admin/login)
+Stack trace:
+#0 {main}
+[08-Jun-2025 14:11:05 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
+[08-Jun-2025 14:11:05 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
+[2025-06-08 14:11:05] EXCEPTION: Call to undefined method Wizard::getCurrentStep() in /Users/admin/Desktop/Projects/painer-near-me-20i/index.php on line 25 (IP: 127.0.0.1, URL: /admin/analytics)
+Stack trace:
+#0 {main}

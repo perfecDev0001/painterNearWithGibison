@@ -1,0 +1,263 @@
+# Production .htaccess for Painter Near Me
+# Enhanced security and performance for live hosting
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Protect sensitive files (compatible with both Apache versions)
+<Files "project.env">
+    <RequireAll>
+        Require all denied
+    </RequireAll>
+    # Fallback for Apache 2.2
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files ".env">
+    <RequireAll>
+        Require all denied
+    </RequireAll>
+    # Fallback for Apache 2.2
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files ".gibson-env">
+    <RequireAll>
+        Require all denied
+    </RequireAll>
+    # Fallback for Apache 2.2
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "composer.json">
+    <RequireAll>
+        Require all denied
+    </RequireAll>
+    # Fallback for Apache 2.2
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "composer.lock">
+    <RequireAll>
+        Require all denied
+    </RequireAll>
+    # Fallback for Apache 2.2
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Protect log files
+<Files "*.log">
+    <RequireAll>
+        Require all denied
+    </RequireAll>
+    # Fallback for Apache 2.2
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Protect backup files
+<FilesMatch "\.(bak|backup|old|orig|save|swp|tmp)$">
+    <RequireAll>
+        Require all denied
+    </RequireAll>
+    # Fallback for Apache 2.2
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Enhanced security headers
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "DENY"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Remove server information
+    Header unset Server
+    Header unset X-Powered-By
+    
+    # HTTPS Strict Transport Security (only add if HTTPS is confirmed working)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Custom error pages
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php
+
+# Performance optimizations
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Images
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    
+    # CSS and JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    
+    # Fonts
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# GZIP Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# URL Rewriting Rules
+<IfModule mod_rewrite.c>
+    # Smart HTTPS redirect (avoids loops with hosting provider HTTPS)
+    # Only redirect if not already HTTPS and not coming from a proxy
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteCond %{HTTP_HOST} ^painter-near-me\.co\.uk$ [NC]
+    RewriteRule ^(.*)$ https://painter-near-me.co.uk/$1 [L,R=301]
+    
+    # Admin routing - handle admin/* URLs to admin-*.php files
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^admin/([^/]+)/?$ admin-$1.php [L,QSA]
+    
+    # Assets routing - serve static files through serve-asset.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^assets/(.+)$ serve-asset.php?file=$1 [L,QSA]
+    
+    # API routing
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^api/(.+)$ api/$1 [L,QSA]
+    
+    # Clean URLs for main pages
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^how-it-works/?$ how-it-works.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^contact/?$ contact.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^login/?$ login.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^register/?$ register.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^dashboard/?$ dashboard.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^profile/?$ profile.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^leads/?$ leads.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^my-bids/?$ my-bids.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^quote/?$ quote.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^post-job/?$ post-job.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^messaging/?$ messaging.php [L,QSA]
+    
+    # Lead-specific routing
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^lead/([0-9]+)/?$ quote-bids.php?lead_id=$1 [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^bid/([0-9]+)/?$ bid.php?id=$1 [L,QSA]
+    
+    # Legal pages
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^privacy/?$ privacy-policy.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^terms/?$ terms.php [L,QSA]
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^cookies/?$ cookie-policy.php [L,QSA]
+    
+    # Special pages
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^customer-dashboard/?$ customer-dashboard.php [L,QSA]
+    
+    # Default fallback to index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/(favicon\.ico|robots\.txt|sitemap\.xml)$
+    RewriteRule . index.php [L]
+</IfModule>
+
+# PHP Configuration (if supported)
+<IfModule mod_php.c>
+    # Hide PHP version
+    php_flag expose_php off
+    
+    # Security settings
+    php_flag allow_url_fopen off
+    php_flag allow_url_include off
+    
+    # Session security
+    php_flag session.cookie_httponly on
+    php_flag session.use_strict_mode on
+    
+    # Upload limits
+    php_value upload_max_filesize 10M
+    php_value post_max_size 12M
+    php_value max_file_uploads 5
+    
+    # Memory and time limits
+    php_value memory_limit 128M
+    php_value max_execution_time 30
+</IfModule>
+
+# MIME types
+<IfModule mod_mime.c>
+    AddType text/css .css
+    AddType application/javascript .js
+    AddType image/svg+xml .svg
+    AddType font/woff .woff
+    AddType font/woff2 .woff2
+</IfModule>
+
+# Force UTF-8 encoding
+AddDefaultCharset UTF-8 

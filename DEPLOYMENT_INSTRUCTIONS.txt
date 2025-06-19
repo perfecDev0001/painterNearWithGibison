@@ -1,0 +1,83 @@
+🚨 EMERGENCY FIX FOR REDIRECT LOOP ERROR 🚨
+
+If you're seeing "ERR_TOO_MANY_REDIRECTS" error:
+
+1. IMMEDIATELY replace .htaccess with .htaccess-no-https-redirect:
+   
+   Delete: .htaccess
+   Rename: .htaccess-no-https-redirect to .htaccess
+   
+   This removes the HTTPS redirect that's conflicting with your hosting provider.
+
+2. Wait 2-3 minutes for DNS propagation
+3. Test the website - it should load properly
+
+The hosting provider is already handling HTTPS redirects, so our .htaccess redirect was creating a loop.
+
+===============================================
+PAINTER NEAR ME - PRODUCTION DEPLOYMENT INSTRUCTIONS
+=======================================================
+
+📂 UPLOAD LOCATION: Upload ALL contents of this folder to your hosting provider's public_html/ or www/ directory
+
+🌐 DOMAIN: https://painter-near-me.co.uk
+
+🗄️ DATABASE: Uses Gibson AI Database (credentials already configured)
+
+⚙️ PREREQUISITES BEFORE UPLOAD:
+1. SSL Certificate must be installed on painter-near-me.co.uk
+2. Email account: no-reply@painter-near-me.co.uk must be created
+3. Update Stripe API keys in project.env with your LIVE keys
+
+📁 FILE PERMISSIONS (Set these on your server):
+chmod 644 *.php
+chmod 644 *.html
+chmod 644 .htaccess
+chmod 600 project.env
+chmod 755 assets/
+chmod 755 config/
+chmod 755 core/
+chmod 755 templates/
+chmod 755 vendor/
+chmod 777 uploads/
+chmod 777 logs/
+
+🧪 IMMEDIATE TESTS AFTER UPLOAD:
+1. Test homepage: https://painter-near-me.co.uk
+2. Test admin login: https://painter-near-me.co.uk/admin/login
+3. Test clean URLs: https://painter-near-me.co.uk/how-it-works
+4. Verify HTTPS redirect works (try http://painter-near-me.co.uk)
+
+🔐 SECURITY VERIFICATION:
+- https://painter-near-me.co.uk/project.env should return 403 Forbidden
+- https://painter-near-me.co.uk/config/ should return 403 Forbidden
+- https://painter-near-me.co.uk/core/ should return 403 Forbidden
+
+⚠️ IMPORTANT UPDATES NEEDED:
+1. In project.env - Replace placeholder Stripe keys with your LIVE keys:
+   - STRIPE_PUBLISHABLE_KEY=pk_live_YOUR_ACTUAL_KEY
+   - STRIPE_SECRET_KEY=sk_live_YOUR_ACTUAL_KEY
+   - STRIPE_WEBHOOK_SECRET=whsec_YOUR_ACTUAL_WEBHOOK_SECRET
+
+2. Update email password in project.env:
+   - SMTP_PASSWORD=your_actual_email_password
+
+🎯 GIBSON AI DATABASE:
+✅ Already configured and ready to use
+✅ Production database ID: painter_marketplace_production
+✅ API credentials are live and configured
+
+📞 EMERGENCY SUPPORT:
+If anything goes wrong, immediately:
+1. Check your hosting provider's error logs
+2. Test with the simple .htaccess-simple file if needed
+3. Verify all file permissions are correct
+
+🎉 SUCCESS INDICATORS:
+✅ Homepage loads with HTTPS
+✅ Admin panel accessible
+✅ Clean URLs working
+✅ No 403/500 errors
+✅ Secure files properly protected
+
+Last Updated: Production Ready - December 2024 

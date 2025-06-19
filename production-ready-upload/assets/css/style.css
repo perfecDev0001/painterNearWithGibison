@@ -1,0 +1,862 @@
+/*
+ * Modern, Consistent, Responsive CSS for Quote Engine
+ * Sticky header, mobile nav, hero, card wizard, progress bar, features, testimonials, footer
+ * BEM naming, accessibility, touch-friendly, mobile-first
+ */
+
+:root {
+    --primary: #00b050;
+    --primary-dark: #009140;
+    --secondary: #f5f7fa;
+    --accent: #f9c846;
+    --text: #222;
+    --text-light: #666;
+    --bg: #fff;
+    --footer-bg: #181c1f;
+    --footer-text: #e5e7eb;
+    --border: #e5e7eb;
+    --radius: 1.2rem;
+    --shadow: 0 4px 32px rgba(0, 0, 0, 0.10);
+    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --transition: 0.2s cubic-bezier(.4, 0, .2, 1);
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    color: var(--text);
+    background: linear-gradient(135deg, #f5f7fa 0%, #eaffea 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* HEADER & NAV */
+.header {
+    background: var(--bg);
+    box-shadow: var(--shadow-light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
+    background: var(--bg);
+}
+
+.nav__container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+}
+
+.nav__logo {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav__logo img {
+    height: 2.2rem;
+    width: auto;
+}
+
+.nav__links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav__link {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: color var(--transition);
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav__link:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width var(--transition);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.nav__link:hover,
+.nav__link:focus {
+    color: var(--primary);
+}
+
+.nav__link:hover:after,
+.nav__link:focus:after {
+    width: 100%;
+}
+
+/* Mobile Nav */
+.nav__toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .nav__links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 1.5rem;
+        background: var(--bg);
+        box-shadow: var(--shadow-light);
+        border-radius: var(--radius);
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem 2rem;
+        z-index: 200;
+    }
+
+    .nav__links.nav__links--open {
+        display: flex;
+    }
+
+    .nav__toggle {
+        display: block;
+    }
+}
+
+/* HERO SECTION */
+.hero {
+    background: linear-gradient(120deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    padding: 5rem 1rem 3rem 1rem;
+    text-align: center;
+    border-radius: 0 0 var(--radius) var(--radius);
+    box-shadow: var(--shadow);
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero__title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin-bottom: 0.7rem;
+    letter-spacing: -1px;
+}
+
+.hero__subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    color: #eaffea;
+}
+
+.hero__stats {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.hero__stat {
+    background: rgba(255, 255, 255, 0.13);
+    border-radius: var(--radius);
+    padding: 1.2rem 2.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero__stat-number {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.hero__stat-text {
+    font-size: 1.1rem;
+    color: #eaffea;
+}
+
+.hero__disclaimer {
+    font-size: 1.05rem;
+    color: #eaffea;
+    margin-top: 1.5rem;
+}
+
+/* QUOTE WIZARD CARD */
+.quote-form,
+.step__form {
+    background: #fff;
+    border-radius: 1.8rem;
+    box-shadow: 0 12px 40px rgba(0, 176, 80, 0.13), 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 3.5rem 3rem 2.5rem 3rem;
+    max-width: 600px;
+    margin: 3rem auto 3.5rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+    align-items: stretch;
+    font-size: 1.18rem;
+    transition: box-shadow 0.3s, transform 0.3s;
+    animation: fadeInStep 0.5s cubic-bezier(.4, 0, .2, 1);
+}
+
+@keyframes fadeInStep {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.quote-form__step,
+.step__form>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.quote-form__label,
+.step__label {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+    font-size: 1.1rem;
+}
+
+.quote-form__input,
+.step__input,
+.step__form textarea {
+    padding: 0.9rem 1.1rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1.1rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.quote-form__input:focus,
+.step__input:focus,
+.step__form textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 2px #b6f5c2;
+}
+
+.quote-form__submit,
+.step__button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 1.2rem;
+    padding: 1.1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: background var(--transition), box-shadow var(--transition);
+    box-shadow: 0 4px 16px rgba(0, 176, 80, 0.10);
+    margin-top: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.quote-form__submit:hover,
+.step__button:hover,
+.quote-form__submit:focus,
+.step__button:focus {
+    background: var(--primary-dark);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* PROGRESS BAR */
+.progress {
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    gap: 1.5rem;
+}
+
+.progress__step {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+    background: #e5e7eb;
+    color: #00b050;
+    font-weight: 700;
+    border: 2.5px solid #e5e7eb;
+    transition: background 0.3s, color 0.3s, border 0.3s, transform 0.3s;
+}
+
+.progress__step--active {
+    background: #00b050;
+    color: #fff;
+    border: 2.5px solid #00b050;
+    transform: scale(1.15);
+    box-shadow: 0 2px 12px rgba(0, 176, 80, 0.13);
+}
+
+/* STEP INDICATOR */
+.step__indicator {
+    text-align: right;
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* RADIO & OPTIONS */
+.step__options {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+
+.step__option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--text);
+    cursor: pointer;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.7rem;
+    transition: background 0.15s;
+}
+
+.step__option:hover,
+.step__option:focus-within {
+    background: #eaffea;
+}
+
+.step__option input[type="radio"],
+.step__option input[type="checkbox"] {
+    accent-color: #00b050;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    border: 2px solid #00b050;
+    margin-right: 0.5rem;
+    transition: box-shadow 0.2s;
+}
+
+.step__option input[type="radio"]:focus,
+.step__option input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 3px #b6f5c2;
+    outline: none;
+}
+
+/* ERROR MESSAGES */
+.step__errors {
+    background: #ffeaea;
+    color: #b00020;
+    border: 1.5px solid #ffb3b3;
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+}
+
+.step__error {
+    margin-bottom: 0.5rem;
+}
+
+/* FEATURES & TESTIMONIALS */
+.features,
+.testimonials {
+    background: var(--bg);
+    padding: 3.5rem 1rem;
+    margin-top: 2rem;
+}
+
+.features__container,
+.testimonials__container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.features__title,
+.testimonials__title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 2.2rem;
+    text-align: center;
+}
+
+.features__grid,
+.testimonials__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.2rem;
+    justify-content: center;
+}
+
+.feature,
+.testimonial {
+    background: var(--secondary);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-light);
+    padding: 2.2rem 1.7rem;
+    flex: 1 1 260px;
+    max-width: 340px;
+    text-align: center;
+    transition: transform var(--transition), box-shadow var(--transition);
+    margin-bottom: 1.5rem;
+}
+
+.feature:hover,
+.feature:focus-within,
+.testimonial:hover,
+.testimonial:focus-within {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 6px 24px rgba(0, 176, 80, 0.10);
+}
+
+.feature__icon {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 1.2rem;
+}
+
+.feature__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.feature__text {
+    color: var(--text-light);
+    font-size: 1.05rem;
+}
+
+.testimonial__text {
+    font-size: 1.13rem;
+    color: var(--text);
+    margin-bottom: 1.1rem;
+}
+
+.testimonial__author {
+    font-size: 1.05rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* FOOTER */
+.footer {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 2.5rem 1rem 1.5rem 1rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2.5rem;
+}
+
+.footer__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    justify-content: space-between;
+}
+
+.footer__section {
+    flex: 1 1 200px;
+}
+
+.footer__title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 0.7rem;
+}
+
+.footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer__link {
+    color: var(--footer-text);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.3rem;
+    transition: color var(--transition);
+    font-weight: 500;
+}
+
+.footer__link:hover,
+.footer__link:focus {
+    color: var(--accent);
+}
+
+.footer__bottom {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-size: 1rem;
+    color: var(--footer-text);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1100px) {
+
+    .features__grid,
+    .testimonials__grid,
+    .footer__container {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .hero__stats {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+}
+
+@media (max-width: 700px) {
+    .hero {
+        padding: 2.5rem 0.5rem 1.5rem 0.5rem;
+        min-height: 40vh;
+    }
+
+    .quote-form,
+    .step__form {
+        padding: 1.2rem 0.5rem;
+        max-width: 99vw;
+        font-size: 1.05rem;
+    }
+
+    .features,
+    .testimonials,
+    .footer {
+        padding: 2rem 0.5rem;
+    }
+
+    .features__title,
+    .testimonials__title {
+        font-size: 1.3rem;
+    }
+
+    .hero__title {
+        font-size: 1.5rem;
+    }
+
+    .footer__container {
+        padding: 0 0.5rem;
+    }
+
+    .progress-bar {
+        max-width: 98vw;
+    }
+}
+
+/* Skip to content link */
+.skip-to-content {
+    position: absolute;
+    left: -999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 9999;
+    background: var(--primary);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 700;
+    transition: left 0.3s;
+}
+
+.skip-to-content:focus {
+    left: 1rem;
+    top: 1rem;
+    width: auto;
+    height: auto;
+    outline: 2px solid var(--accent);
+}
+
+/* Button touch feedback */
+button,
+.quote-form__submit,
+.step__button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0, 176, 80, 0.15);
+}
+
+/* Progress bar animation */
+.progress__step {
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.progress__step--active {
+    animation: pop 0.3s cubic-bezier(.4, 0, .2, 1);
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    60% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Inline validation error */
+.input-error {
+    border-color: #b00020 !important;
+    background: #ffeaea;
+}
+
+.input-error-message {
+    color: #b00020;
+    font-size: 0.98rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Social icons */
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-icon {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    transition: background 0.2s, color 0.2s;
+    font-size: 1.3rem;
+    text-decoration: none;
+}
+
+.social-icon:hover,
+.social-icon:focus {
+    background: var(--accent);
+    color: var(--footer-bg);
+}
+
+/* Trust badges */
+.trust-badges {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0 0 0;
+    justify-content: center;
+}
+
+.trust-badge {
+    height: 32px;
+    width: auto;
+    display: inline-block;
+}
+
+/* Newsletter signup */
+.newsletter {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.newsletter__label {
+    color: var(--footer-text);
+    font-weight: 600;
+}
+
+.newsletter__input {
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    font-size: 1rem;
+}
+
+.newsletter__button {
+    background: var(--accent);
+    color: var(--footer-bg);
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.7rem 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 0.3rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+.newsletter__button:hover,
+.newsletter__button:focus {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* Progress bar below step indicator */
+.progress-bar {
+    width: 100%;
+    max-width: 480px;
+    height: 7px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    margin: 0 auto 2rem auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar__fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00b050 0%, #009140 100%);
+    border-radius: 4px;
+    transition: width 0.4s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* Form element hover/focus */
+.quote-form__input:hover,
+.step__input:hover,
+.step__form textarea:hover,
+.quote-form__input:focus,
+.step__input:focus,
+.step__form textarea:focus {
+    border-color: #00b050;
+    box-shadow: 0 0 0 2px #b6f5c2;
+}
+
+/* Back button for wizard */
+.step__button--back {
+    background: #fff;
+    color: #00b050;
+    border: 2px solid #00b050;
+    margin-right: 1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 1.2rem;
+    padding: 1.1rem 2rem;
+    box-shadow: none;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+    position: relative;
+    z-index: 1;
+}
+
+.step__button--back:hover,
+.step__button--back:focus {
+    background: #eaffea;
+    color: #008040;
+    border-color: #009140;
+}
+
+/* Space between Back and Next buttons */
+.step__backform {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+/* Step icon area (for future icons) */
+.step__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    font-size: 2.2rem;
+    color: #00b050;
+}
+
+/* Larger, touch-friendly progress bar */
+.progress-bar--large {
+    height: 14px;
+    max-width: 480px;
+    border-radius: 7px;
+    margin: 0 auto 2.5rem auto;
+    background: #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 176, 80, 0.08);
+}
+
+.progress-bar--large .progress-bar__fill {
+    border-radius: 7px;
+}
+
+/* Step actions panel for Back/Next buttons */
+.step__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: 2.2rem;
+}
+
+.step__button--back {
+    order: 1;
+}
+
+.step__button--next,
+.step__button[type="submit"] {
+    order: 2;
+}
+
+@media (max-width: 700px) {
+    .step__actions {
+        flex-direction: column;
+        gap: 0.7rem;
+        width: 100%;
+    }
+
+    .step__button,
+    .step__button--back {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+}
+
+/* Remove unused progress__step and step__indicator styles */
+.progress__step,
+.step__indicator {
+    display: none !important;
+}

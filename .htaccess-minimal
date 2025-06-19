@@ -1,0 +1,44 @@
+# MINIMAL .htaccess - NO REDIRECTS AT ALL
+# Use this if you're still getting redirect loops
+
+RewriteEngine On
+
+# Only protect sensitive files - no redirects
+<Files "project.env">
+    Deny from all
+</Files>
+
+<Files ".env">
+    Deny from all
+</Files>
+
+<Files "composer.json">
+    Deny from all
+</Files>
+
+# Basic admin routing only
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin/([^/]+)/?$ admin-$1.php [L]
+
+# Basic page routing only
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^how-it-works/?$ how-it-works.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^contact/?$ contact.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^login/?$ login.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^register/?$ register.php [L]
+
+# Default fallback
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L] 
