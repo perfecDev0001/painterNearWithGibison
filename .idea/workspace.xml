@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="" />
+    <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/how-it-works.php" beforeDir="false" afterPath="$PROJECT_DIR$/how-it-works.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,7 +32,7 @@
     "RunOnceActivity.zencoder-patch-chat-storage-migration": "true",
     "RunOnceActivity.zencoder-patch-generate-chat-message-id": "true",
     "RunOnceActivity.zencoder-patch-migrate-custom-instruction": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "/home/yns/Documents/production-ready-upload/production-ready-upload",
     "node.js.detected.package.eslint": "true",
@@ -65,7 +67,7 @@
       <workItem from="1750211316226" duration="2945000" />
       <workItem from="1750256427012" duration="526000" />
       <workItem from="1750256969443" duration="4386000" />
-      <workItem from="1750338370740" duration="4321000" />
+      <workItem from="1750338370740" duration="4871000" />
     </task>
     <servers />
   </component>
