@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/core/GibsonAIService.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/GibsonAIService.php" afterDir="false" />
-    </list>
+    <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +29,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.zencoder-patch-add-chat-message-raw-content": "true",
     "RunOnceActivity.zencoder-patch-chat-storage-migration": "true",
     "RunOnceActivity.zencoder-patch-generate-chat-message-id": "true",
@@ -71,6 +70,7 @@
       <workItem from="1750256427012" duration="526000" />
       <workItem from="1750256969443" duration="4386000" />
       <workItem from="1750338370740" duration="11889000" />
+      <workItem from="1750433164647" duration="121000" />
     </task>
     <servers />
   </component>

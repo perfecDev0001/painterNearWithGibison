@@ -7,9 +7,9 @@ if (file_exists($envFile)) {
     $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
         if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
-            [$key, $value] = explode('=', $line, 2);
-            $key = trim($key);
-            $value = trim($value);
+            $parts = explode('=', $line, 2);
+            $key = trim($parts[0]);
+            $value = trim($parts[1]);
             if (!getenv($key) && !empty($value)) {
                 putenv("$key=$value");
             }
