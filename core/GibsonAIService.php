@@ -1037,10 +1037,6 @@ class GibsonAIService {
         ];
     }
 
-    public function makeApiCallPublic($endpoint, $data = null, $method = 'GET') {
-        return $this->makeApiCall($endpoint, $data, $method);
-    }
-
     public function getProjectConversation($projectUuid) {
         if ($this->useMockService) {
             return $this->mockService->getProjectConversation($projectUuid);
