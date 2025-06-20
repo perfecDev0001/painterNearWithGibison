@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="" />
+    <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,28 +26,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.zencoder-patch-add-chat-message-raw-content": "true",
-    "RunOnceActivity.zencoder-patch-chat-storage-migration": "true",
-    "RunOnceActivity.zencoder-patch-generate-chat-message-id": "true",
-    "RunOnceActivity.zencoder-patch-migrate-custom-instruction": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/yns/Documents/production-ready-upload/production-ready-upload",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.zencoder-patch-add-chat-message-raw-content&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.zencoder-patch-chat-storage-migration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.zencoder-patch-generate-chat-message-id&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.zencoder-patch-migrate-custom-instruction&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/yns/Documents/production-ready-upload/production-ready-upload&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -71,6 +73,7 @@
       <workItem from="1750256969443" duration="4386000" />
       <workItem from="1750338370740" duration="11889000" />
       <workItem from="1750433164647" duration="121000" />
+      <workItem from="1750433303044" duration="1148000" />
     </task>
     <servers />
   </component>
@@ -643,6 +646,7 @@
         <entry key="$PROJECT_DIR$/.htaccess-fixed-for-live" value="1750002280994" />
         <entry key="$PROJECT_DIR$/.htaccess-minimal" value="1750002280994" />
         <entry key="$PROJECT_DIR$/.htaccess-no-https-redirect" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/.idea/workspace.xml" value="1750434212960" />
         <entry key="$PROJECT_DIR$/.zencoder/.gitignore" value="1750263873232" />
         <entry key="$PROJECT_DIR$/404.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/500.php" value="1750002280994" />
@@ -869,9 +873,9 @@
         <entry key="$PROJECT_DIR$/webhook.php" value="1750002280994" />
       </map>
     </option>
-    <option name="lastCommitHash" value="1750428387127" />
-    <option name="lastIndexTimestamp" value="1750428377185" />
-    <option name="repoAccumulatedChanges" value="27" />
+    <option name="lastCommitHash" value="a33323bdd338f9cb1f277be5cacfb118950e5759" />
+    <option name="lastIndexTimestamp" value="1750434212960" />
+    <option name="repoAccumulatedChanges" value="28" />
     <option name="repoTotalFiles" value="212" />
     <option name="repositoryId" value="d02980a0-0736-4d7a-8df6-cc9037715531" />
     <option name="state" value="FULLY_INDEXED" />
