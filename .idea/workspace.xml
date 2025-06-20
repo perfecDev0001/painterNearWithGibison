@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/contact.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagnostic.php" beforeDir="false" afterPath="$PROJECT_DIR$/diagnostic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.env" beforeDir="false" afterPath="$PROJECT_DIR$/project.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +23,9 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2yYBUssBlvqOR7Dk7sQTGjYMF77" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -69,7 +74,7 @@
       <workItem from="1750211316226" duration="2945000" />
       <workItem from="1750256427012" duration="526000" />
       <workItem from="1750256969443" duration="4386000" />
-      <workItem from="1750338370740" duration="6337000" />
+      <workItem from="1750338370740" duration="9390000" />
     </task>
     <servers />
   </component>
@@ -695,7 +700,7 @@
         <entry key="$PROJECT_DIR$/config/production.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/config/sqlite_database.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/configs/painting.php" value="1750002280994" />
-        <entry key="$PROJECT_DIR$/contact.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/contact.php" value="1750344976901" />
         <entry key="$PROJECT_DIR$/cookie-policy.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/core/BidDatabaseService.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/core/EmailNotificationService.php" value="1750002280994" />
@@ -867,9 +872,9 @@
         <entry key="$PROJECT_DIR$/webhook.php" value="1750002280994" />
       </map>
     </option>
-    <option name="lastCommitHash" value="1750343502235" />
-    <option name="lastIndexTimestamp" value="1750343477531" />
-    <option name="repoAccumulatedChanges" value="17" />
+    <option name="lastCommitHash" value="1750344980586" />
+    <option name="lastIndexTimestamp" value="1750344976901" />
+    <option name="repoAccumulatedChanges" value="18" />
     <option name="repoTotalFiles" value="212" />
     <option name="repositoryId" value="d02980a0-0736-4d7a-8df6-cc9037715531" />
     <option name="state" value="FULLY_INDEXED" />

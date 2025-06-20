@@ -1,63 +1,83 @@
 <?php
 /**
  * Diagnostic Script for Painter Near Me
- * This script helps identify issues causing 503 errors on the live server
- * Upload this file and access it directly to see what's causing the problem
+ * This script helps identify server configuration issues
  */
 
-// Set error reporting for diagnostics
+// Enable error reporting for diagnostics
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 echo "<h1>Painter Near Me - Server Diagnostic</h1>";
-echo "<p>Running diagnostics at " . date('Y-m-d H:i:s T') . "</p>";
+echo "<style>body{font-family:Arial,sans-serif;margin:20px;} .ok{color:green;} .error{color:red;} .warning{color:orange;} pre{background:#f5f5f5;padding:10px;border-radius:5px;}</style>";
 
-// Test 1: PHP Version and Extensions
-echo "<h2>1. PHP Environment Check</h2>";
-echo "PHP Version: " . phpversion() . "<br>";
-echo "Server Software: " . ($_SERVER['SERVER_SOFTWARE'] ?? 'Unknown') . "<br>";
+// Check PHP version
+echo "<h2>PHP Configuration</h2>";
+echo "<p>PHP Version: <span class='ok'>" . PHP_VERSION . "</span></p>";
 
-$requiredExtensions = ['mysqli', 'curl', 'json', 'mbstring', 'openssl'];
+// Check required PHP extensions
+$requiredExtensions = ['mysqli', 'pdo', 'pdo_mysql', 'curl', 'json', 'mbstring', 'openssl'];
+echo "<h3>Required PHP Extensions:</h3>";
 foreach ($requiredExtensions as $ext) {
-    $status = extension_loaded($ext) ? '✅ Loaded' : '❌ Missing';
-    echo "Extension {$ext}: {$status}<br>";
+    $status = extension_loaded($ext) ? "<span class='ok'>✓ Loaded</span>" : "<span class='error'>✗ Missing</span>";
+    echo "<p>$ext: $status</p>";
 }
 
-// Test 2: File Permissions and Directory Structure
-echo "<h2>2. File System Check</h2>";
-$paths = [
-    __DIR__ => 'Root Directory',
-    __DIR__ . '/config' => 'Config Directory',
-    __DIR__ . '/core' => 'Core Directory',
-    __DIR__ . '/logs' => 'Logs Directory',
-    __DIR__ . '/uploads' => 'Uploads Directory',
-    __DIR__ . '/project.env' => 'Environment File',
-    __DIR__ . '/bootstrap.php' => 'Bootstrap File',
-    __DIR__ . '/index.php' => 'Index File'
+// Check file permissions
+echo "<h2>File System</h2>";
+$checkPaths = [
+    '.' => 'Root directory',
+    './logs' => 'Logs directory',
+    './uploads' => 'Uploads directory',
+    './config' => 'Config directory',
+    './core' => 'Core directory'
 ];
 
-foreach ($paths as $path => $name) {
+foreach ($checkPaths as $path => $description) {
     if (file_exists($path)) {
         $perms = substr(sprintf('%o', fileperms($path)), -4);
-        $readable = is_readable($path) ? '✅' : '❌';
-        $writable = is_writable($path) ? '✅' : '❌';
-        echo "{$name}: Exists ({$perms}) Read:{$readable} Write:{$writable}<br>";
+        $writable = is_writable($path) ? "<span class='ok'>Writable</span>" : "<span class='warning'>Read-only</span>";
+        echo "<p>$description ($path): Permissions $perms - $writable</p>";
     } else {
-        echo "{$name}: ❌ Missing<br>";
+        echo "<p>$description ($path): <span class='error'>Not found</span></p>";
     }
 }
 
-// Test 3: Environment Configuration
-echo "<h2>3. Environment Configuration</h2>";
+// Check environment files
+echo "<h2>Environment Configuration</h2>";
+$envFiles = ['project.env', '.env', '.gibson-env'];
+foreach ($envFiles as $file) {
+    if (file_exists($file)) {
+        echo "<p>$file: <span class='ok'>Found</span></p>";
+    } else {
+        echo "<p>$file: <span class='warning'>Not found</span></p>";
+    }
+}
+
+// Test basic file includes
+echo "<h2>Core Files</h2>";
+$coreFiles = [
+    'bootstrap.php' => 'Bootstrap file',
+    'core/ErrorHandler.php' => 'Error handler',
+    'core/Wizard.php' => 'Quote wizard',
+    'config/database.php' => 'Database config'
+];
+
+foreach ($coreFiles as $file => $description) {
+    if (file_exists($file)) {
+        echo "<p>$description ($file): <span class='ok'>Found</span></p>";
+    } else {
+        echo "<p>$description ($file): <span class='error'>Missing</span></p>";
+    }
+}
+
+// Test environment loading
+echo "<h2>Environment Variables</h2>";
 try {
-    if (file_exists(__DIR__ . '/project.env')) {
-        echo "✅ project.env file found<br>";
-        $envContent = file_get_contents(__DIR__ . '/project.env');
-        echo "File size: " . strlen($envContent) . " bytes<br>";
-        
-        // Parse environment variables
-        $lines = file(__DIR__ . '/project.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    // Load environment manually
+    if (file_exists('project.env')) {
+        $lines = file('project.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         $envVars = [];
         foreach ($lines as $line) {
             if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
@@ -68,155 +88,142 @@ try {
             }
         }
         
-        $keyVars = ['APP_ENV', 'APP_DEBUG', 'GIBSON_API_KEY', 'GIBSON_DATABASE_ID'];
-        foreach ($keyVars as $var) {
-            $status = isset($envVars[$var]) ? '✅' : '❌';
-            $value = isset($envVars[$var]) ? (strlen($envVars[$var]) > 20 ? substr($envVars[$var], 0, 20) . '...' : $envVars[$var]) : 'Not set';
-            if ($var === 'GIBSON_API_KEY' && isset($envVars[$var])) {
-                $value = 'Present (hidden)';
+        echo "<p>Environment variables loaded: <span class='ok'>" . count($envVars) . " variables</span></p>";
+        
+        // Check critical variables
+        $criticalVars = ['APP_ENV', 'GIBSON_DEVELOPMENT_MODE', 'DB_HOST', 'DB_DATABASE'];
+        foreach ($criticalVars as $var) {
+            if (isset($envVars[$var])) {
+                echo "<p>$var: <span class='ok'>" . htmlspecialchars($envVars[$var]) . "</span></p>";
+            } else {
+                echo "<p>$var: <span class='warning'>Not set</span></p>";
             }
-            echo "{$var}: {$status} {$value}<br>";
         }
-    } else {
-        echo "❌ project.env file not found<br>";
     }
 } catch (Exception $e) {
-    echo "❌ Error reading environment: " . $e->getMessage() . "<br>";
+    echo "<p>Environment loading error: <span class='error'>" . htmlspecialchars($e->getMessage()) . "</span></p>";
 }
 
-// Test 4: Core Files Check
-echo "<h2>4. Core Files Check</h2>";
+// Test database connection
+echo "<h2>Database Connection</h2>";
 try {
-    if (file_exists(__DIR__ . '/bootstrap.php')) {
-        echo "✅ bootstrap.php found<br>";
-        ob_start();
-        $bootstrapError = null;
-        try {
-            // Don't actually include bootstrap to avoid conflicts
-            $content = file_get_contents(__DIR__ . '/bootstrap.php');
-            echo "Bootstrap file size: " . strlen($content) . " bytes<br>";
-            
-            // Check for syntax errors
-            $check = php_check_syntax(__DIR__ . '/bootstrap.php', $syntaxError);
-            if ($check) {
-                echo "✅ Bootstrap syntax OK<br>";
-            } else {
-                echo "❌ Bootstrap syntax error: " . $syntaxError . "<br>";
-            }
-        } catch (Exception $e) {
-            $bootstrapError = $e->getMessage();
-        }
-        ob_get_clean();
+    if (file_exists('config/database.php')) {
+        $config = require 'config/database.php';
         
-        if ($bootstrapError) {
-            echo "❌ Bootstrap error: " . $bootstrapError . "<br>";
+        echo "<p>Database config loaded: <span class='ok'>Success</span></p>";
+        echo "<p>Host: " . htmlspecialchars($config['host']) . "</p>";
+        echo "<p>Database: " . htmlspecialchars($config['database']) . "</p>";
+        echo "<p>Port: " . htmlspecialchars($config['port']) . "</p>";
+        
+        // Test connection
+        $connection = new mysqli(
+            $config['host'],
+            $config['username'],
+            $config['password'],
+            $config['database'],
+            $config['port']
+        );
+        
+        if ($connection->connect_error) {
+            echo "<p>Database connection: <span class='error'>Failed - " . htmlspecialchars($connection->connect_error) . "</span></p>";
+        } else {
+            echo "<p>Database connection: <span class='ok'>Success</span></p>";
+            $connection->close();
         }
-    } else {
-        echo "❌ bootstrap.php not found<br>";
+    }
+} catch (Exception $e) {
+    echo "<p>Database test error: <span class='error'>" . htmlspecialchars($e->getMessage()) . "</span></p>";
+}
+
+// Test bootstrap loading
+echo "<h2>Bootstrap Test</h2>";
+try {
+    // Test if we can load bootstrap without errors
+    ob_start();
+    require_once 'bootstrap.php';
+    $bootstrapOutput = ob_get_clean();
+    
+    echo "<p>Bootstrap loading: <span class='ok'>Success</span></p>";
+    if (!empty($bootstrapOutput)) {
+        echo "<p>Bootstrap output:</p><pre>" . htmlspecialchars($bootstrapOutput) . "</pre>";
     }
     
-    $coreFiles = ['/core/ErrorHandler.php', '/config/database.php'];
-    foreach ($coreFiles as $file) {
-        if (file_exists(__DIR__ . $file)) {
-            echo "✅ {$file} found<br>";
+    // Check if constants are defined
+    $constants = ['ROOT_PATH', 'ENVIRONMENT', 'BOOTSTRAP_LOADED'];
+    foreach ($constants as $const) {
+        if (defined($const)) {
+            echo "<p>$const: <span class='ok'>" . htmlspecialchars(constant($const)) . "</span></p>";
         } else {
-            echo "❌ {$file} missing<br>";
+            echo "<p>$const: <span class='error'>Not defined</span></p>";
         }
     }
+    
 } catch (Exception $e) {
-    echo "❌ Error checking core files: " . $e->getMessage() . "<br>";
+    echo "<p>Bootstrap test error: <span class='error'>" . htmlspecialchars($e->getMessage()) . "</span></p>";
 }
 
-// Test 5: Gibson AI Connection Test
-echo "<h2>5. Gibson AI Connection Test</h2>";
+// Test Wizard class loading
+echo "<h2>Wizard Class Test</h2>";
 try {
-    if (file_exists(__DIR__ . '/project.env')) {
-        $envContent = file(__DIR__ . '/project.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $apiKey = null;
-        $apiUrl = null;
+    if (class_exists('Wizard')) {
+        echo "<p>Wizard class: <span class='ok'>Available</span></p>";
         
-        foreach ($envContent as $line) {
-            if (strpos($line, 'GIBSON_API_KEY=') === 0) {
-                $apiKey = trim(substr($line, 15));
-            }
-            if (strpos($line, 'GIBSON_API_URL=') === 0) {
-                $apiUrl = trim(substr($line, 15));
-            }
-        }
-        
-        if ($apiKey && $apiUrl) {
-            echo "API Key: Present<br>";
-            echo "API URL: {$apiUrl}<br>";
-            
-            // Test basic connectivity
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $apiUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-            curl_setopt($ch, CURLOPT_HEADER, true);
-            curl_setopt($ch, CURLOPT_NOBODY, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            $error = curl_error($ch);
-            curl_close($ch);
-            
-            if ($error) {
-                echo "❌ Connection error: {$error}<br>";
-            } else {
-                echo "✅ Gibson API reachable (HTTP {$httpCode})<br>";
-            }
-        } else {
-            echo "❌ Gibson API credentials not found<br>";
-        }
+        // Try to instantiate
+        $wizard = new Wizard();
+        echo "<p>Wizard instantiation: <span class='ok'>Success</span></p>";
+    } else {
+        echo "<p>Wizard class: <span class='error'>Not found</span></p>";
     }
 } catch (Exception $e) {
-    echo "❌ Gibson connection test error: " . $e->getMessage() . "<br>";
+    echo "<p>Wizard test error: <span class='error'>" . htmlspecialchars($e->getMessage()) . "</span></p>";
 }
 
-// Test 6: Memory and Resource Limits
-echo "<h2>6. Resource Limits</h2>";
-echo "Memory Limit: " . ini_get('memory_limit') . "<br>";
-echo "Max Execution Time: " . ini_get('max_execution_time') . "<br>";
-echo "Upload Max Filesize: " . ini_get('upload_max_filesize') . "<br>";
-echo "Post Max Size: " . ini_get('post_max_size') . "<br>";
+// Server information
+echo "<h2>Server Information</h2>";
+echo "<p>Server Software: " . ($_SERVER['SERVER_SOFTWARE'] ?? 'Unknown') . "</p>";
+echo "<p>Document Root: " . ($_SERVER['DOCUMENT_ROOT'] ?? 'Unknown') . "</p>";
+echo "<p>Script Path: " . __FILE__ . "</p>";
+echo "<p>Current Working Directory: " . getcwd() . "</p>";
 
-// Test 7: Simple Bootstrap Test
-echo "<h2>7. Bootstrap Loading Test</h2>";
-try {
-    // Create a minimal test
-    if (file_exists(__DIR__ . '/project.env')) {
-        echo "✅ Attempting to load environment...<br>";
-        
-        // Manually load environment without bootstrap
-        $envFile = __DIR__ . '/project.env';
-        $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($lines as $line) {
-            if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
-                $parts = explode('=', $line, 2);
-                $key = trim($parts[0]);
-                $value = trim($parts[1]);
-                $_ENV[$key] = $value;
-                putenv($key . '=' . $value);
-            }
-        }
-        
-        echo "✅ Environment loaded successfully<br>";
-        echo "APP_ENV: " . (getenv('APP_ENV') ?: 'Not set') . "<br>";
-        echo "APP_DEBUG: " . (getenv('APP_DEBUG') ?: 'Not set') . "<br>";
+// Memory and limits
+echo "<h2>PHP Limits</h2>";
+echo "<p>Memory Limit: " . ini_get('memory_limit') . "</p>";
+echo "<p>Max Execution Time: " . ini_get('max_execution_time') . " seconds</p>";
+echo "<p>Upload Max Filesize: " . ini_get('upload_max_filesize') . "</p>";
+echo "<p>Post Max Size: " . ini_get('post_max_size') . "</p>";
+
+// Check for common issues
+echo "<h2>Common Issues Check</h2>";
+
+// Check if mod_rewrite is available
+if (function_exists('apache_get_modules')) {
+    $modules = apache_get_modules();
+    if (in_array('mod_rewrite', $modules)) {
+        echo "<p>mod_rewrite: <span class='ok'>Available</span></p>";
+    } else {
+        echo "<p>mod_rewrite: <span class='error'>Not available</span></p>";
     }
-} catch (Exception $e) {
-    echo "❌ Bootstrap test error: " . $e->getMessage() . "<br>";
+} else {
+    echo "<p>mod_rewrite: <span class='warning'>Cannot detect (function not available)</span></p>";
 }
 
-echo "<h2>Diagnostic Complete</h2>";
-echo "<p>If you see this message, PHP is working. Check the results above for issues.</p>";
-echo "<p><strong>Common Solutions:</strong></p>";
+// Check .htaccess
+if (file_exists('.htaccess')) {
+    echo "<p>.htaccess file: <span class='ok'>Found</span></p>";
+    $htaccessSize = filesize('.htaccess');
+    echo "<p>.htaccess size: {$htaccessSize} bytes</p>";
+} else {
+    echo "<p>.htaccess file: <span class='error'>Missing</span></p>";
+}
+
+echo "<hr>";
+echo "<p><strong>Diagnostic completed at:</strong> " . date('Y-m-d H:i:s') . "</p>";
+echo "<p><strong>Next steps:</strong></p>";
 echo "<ul>";
-echo "<li>If core files are missing: Re-upload the complete project</li>";
-echo "<li>If permissions are wrong: Set directories to 755, files to 644</li>";
-echo "<li>If PHP extensions are missing: Contact your hosting provider</li>";
-echo "<li>If Gibson API is unreachable: Check firewall/network settings</li>";
+echo "<li>If you see any red errors above, those need to be fixed first</li>";
+echo "<li>Check your hosting provider's error logs for more details</li>";
+echo "<li>Ensure all required PHP extensions are installed</li>";
+echo "<li>Verify database credentials are correct</li>";
+echo "<li>Make sure file permissions allow PHP to read/write necessary directories</li>";
 echo "</ul>";
-?> 
+?>

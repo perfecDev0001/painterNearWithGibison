@@ -82,7 +82,7 @@ RewriteEngine On
     Header unset X-Powered-By
     
     # HTTPS Strict Transport Security (only add if HTTPS is confirmed working)
-    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 </IfModule>
 
 # Custom error pages
@@ -126,12 +126,11 @@ ErrorDocument 500 /500.php
 
 # URL Rewriting Rules
 <IfModule mod_rewrite.c>
-    # Smart HTTPS redirect (avoids loops with hosting provider HTTPS)
-    # Only redirect if not already HTTPS and not coming from a proxy
-    RewriteCond %{HTTPS} off
-    RewriteCond %{HTTP:X-Forwarded-Proto} !https
-    RewriteCond %{HTTP_HOST} ^painter-near-me\.co\.uk$ [NC]
-    RewriteRule ^(.*)$ https://painter-near-me.co.uk/$1 [L,R=301]
+    # DISABLED: Smart HTTPS redirect (hosting provider handles this)
+    # RewriteCond %{HTTPS} off
+    # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    # RewriteCond %{HTTP_HOST} ^painter-near-me\.co\.uk$ [NC]
+    # RewriteRule ^(.*)$ https://painter-near-me.co.uk/$1 [L,R=301]
     
     # Admin routing - handle admin/* URLs to admin-*.php files
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -220,6 +219,11 @@ ErrorDocument 500 /500.php
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^customer-dashboard/?$ customer-dashboard.php [L,QSA]
     
+    # Diagnostic page (temporary)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^diagnostic/?$ diagnostic.php [L,QSA]
+    
     # Default fallback to index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
@@ -248,6 +252,10 @@ ErrorDocument 500 /500.php
     # Memory and time limits
     php_value memory_limit 128M
     php_value max_execution_time 30
+    
+    # Error handling for production
+    php_flag display_errors off
+    php_flag log_errors on
 </IfModule>
 
 # MIME types
@@ -260,4 +268,4 @@ ErrorDocument 500 /500.php
 </IfModule>
 
 # Force UTF-8 encoding
-AddDefaultCharset UTF-8 
+AddDefaultCharset UTF-8
