@@ -2,73 +2,114 @@
 /**
  * Main Landing Page for Painter Near Me
  * Displays the quote form wizard for customers to request painting services
- * With fallback support for when Gibson AI is unavailable
+ * With robust Gibson AI integration and fallback support
  */
 
-// Error handling for production
+// Production error handling
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
+// Initialize variables
+$useWizard = false;
+$currentStep = 1;
+$stepData = [];
+$progress = 0;
+$form_success = false;
+$form_errors = [];
+$gibson_status = 'unknown';
+
 try {
-    // Try to load bootstrap
+    // Load bootstrap with error handling
     require_once 'bootstrap.php';
-    
-    // Check if Gibson AI is enabled and available
-    $gibsonEnabled = (getenv('GIBSON_ENABLED') === 'true' || $_ENV['GIBSON_ENABLED'] === 'true');
-    $useWizard = false;
-    
-    if ($gibsonEnabled) {
-        try {
-            require_once 'core/Wizard.php';
-            $useWizard = true;
-        } catch (Exception $e) {
-            error_log('Wizard loading failed: ' . $e->getMessage());
-            $useWizard = false;
-        }
-    }
     
     // Initialize security headers
     if (function_exists('setSecurityHeaders')) {
         setSecurityHeaders();
     }
     
-    // Start the session for form data persistence
+    // Start session
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
     
-    // Generate CSRF token if not exists
+    // Generate CSRF token
     if (empty($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     
-    if ($useWizard) {
-        // Use the full wizard system
-        $wizard = new Wizard();
-        $wizard->handleRequest();
-        $currentStep = $wizard->getCurrentStep();
-        $stepData = $wizard->getStepData();
-        $progress = $wizard->getProgress();
+    // Test Gibson AI connectivity with timeout
+    $gibsonEnabled = (getenv('GIBSON_ENABLED') !== 'false' && $_ENV['GIBSON_ENABLED'] !== 'false');
+    
+    if ($gibsonEnabled) {
+        try {
+            // Set a short timeout for Gibson AI test
+            $originalTimeout = ini_get('default_socket_timeout');
+            ini_set('default_socket_timeout', 5); // 5 second timeout
+            
+            // Try to load and test Gibson AI
+            require_once 'core/GibsonAIService.php';
+            $gibson = new GibsonAIService();
+            
+            // Quick connectivity test - try to get roles (lightweight operation)
+            $testResult = $gibson->makeApiCallPublic('/v1/-/role', null, 'GET');
+            
+            if ($testResult['success'] || $testResult['http_code'] === 200) {
+                $gibson_status = 'connected';
+                
+                // Load the full wizard system
+                require_once 'core/Wizard.php';
+                $wizard = new Wizard();
+                $wizard->handleRequest();
+                $currentStep = $wizard->getCurrentStep();
+                $stepData = $wizard->getStepData();
+                $progress = $wizard->getProgress();
+                $useWizard = true;
+                
+            } else {
+                $gibson_status = 'api_error';
+                error_log('Gibson AI API test failed: ' . ($testResult['error'] ?? 'Unknown error'));
+            }
+            
+            // Restore original timeout
+            ini_set('default_socket_timeout', $originalTimeout);
+            
+        } catch (Exception $e) {
+            $gibson_status = 'connection_failed';
+            error_log('Gibson AI connection failed: ' . $e->getMessage());
+            
+            // Restore timeout on error
+            if (isset($originalTimeout)) {
+                ini_set('default_socket_timeout', $originalTimeout);
+            }
+        }
     } else {
-        // Use simple form fallback
-        $currentStep = 1;
-        $stepData = [];
-        $progress = 0;
-        
+        $gibson_status = 'disabled';
+    }
+    
+    // If Gibson AI is not working, use simple form fallback
+    if (!$useWizard) {
         // Handle simple form submission
-        $form_success = false;
-        $form_errors = [];
-        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $postcode = trim($_POST['postcode'] ?? '');
             $job_type = trim($_POST['job_type'] ?? '');
             $description = trim($_POST['description'] ?? '');
+            $name = trim($_POST['name'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $phone = trim($_POST['phone'] ?? '');
             $csrf_token = trim($_POST['csrf_token'] ?? '');
             
             // Basic validation
             if ($csrf_token !== $_SESSION['csrf_token']) {
                 $form_errors[] = 'Security token mismatch. Please try again.';
+            }
+            
+            if (empty($name)) {
+                $form_errors[] = 'Please enter your name.';
+            }
+            
+            if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $form_errors[] = 'Please enter a valid email address.';
             }
             
             if (empty($postcode)) {
@@ -84,8 +125,34 @@ try {
             }
             
             if (empty($form_errors)) {
-                // Log the submission
-                $log_entry = date('Y-m-d H:i:s') . " - Quote request: $postcode, $job_type, " . substr($description, 0, 100) . "\n";
+                // Try to save to Gibson AI if available
+                $saved_to_gibson = false;
+                
+                if ($gibson_status === 'connected' && isset($gibson)) {
+                    try {
+                        $leadData = [
+                            'customer_name' => $name,
+                            'customer_email' => $email,
+                            'customer_phone' => $phone,
+                            'postcode' => $postcode,
+                            'job_type' => $job_type,
+                            'description' => $description,
+                            'status' => 'pending',
+                            'created_at' => date('Y-m-d H:i:s')
+                        ];
+                        
+                        $result = $gibson->createJobLead($leadData);
+                        if ($result['success']) {
+                            $saved_to_gibson = true;
+                        }
+                    } catch (Exception $e) {
+                        error_log('Failed to save to Gibson AI: ' . $e->getMessage());
+                    }
+                }
+                
+                // Always log locally as backup
+                $log_entry = date('Y-m-d H:i:s') . " - Quote request: $name, $email, $postcode, $job_type, " . 
+                           substr($description, 0, 100) . ($saved_to_gibson ? ' [GIBSON: YES]' : ' [GIBSON: NO]') . "\n";
                 @file_put_contents('logs/quotes.log', $log_entry, FILE_APPEND | LOCK_EX);
                 
                 $form_success = true;
@@ -97,16 +164,12 @@ try {
     }
     
 } catch (Exception $e) {
-    // Log the error
-    error_log('Index page error: ' . $e->getMessage());
-    
-    // Fallback to simple mode
+    // Log the error and continue with fallback
+    error_log('Index page critical error: ' . $e->getMessage());
+    $gibson_status = 'critical_error';
     $useWizard = false;
-    $currentStep = 1;
-    $stepData = [];
-    $progress = 0;
     
-    // Start session manually
+    // Ensure session is started
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
@@ -300,6 +363,12 @@ try {
                 border: 2px solid #ffb3b3;
             }
             
+            .alert-info {
+                background: #e3f2fd;
+                color: #1565c0;
+                border: 2px solid #42a5f5;
+            }
+            
             .navbar {
                 background: white !important;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -324,6 +393,16 @@ try {
                 color: white;
                 padding: 3rem 0 2rem;
                 margin-top: 4rem;
+            }
+            
+            .system-status {
+                font-size: 0.85rem;
+                color: #666;
+                text-align: center;
+                margin-top: 1rem;
+                padding: 0.5rem;
+                background: #f8f9fa;
+                border-radius: 0.5rem;
             }
             
             @media (max-width: 768px) {
@@ -423,7 +502,12 @@ try {
                     <div class="col-lg-8">
                         <div class="quote-form">
                             <?php if ($useWizard): ?>
-                                <!-- Full Wizard System -->
+                                <!-- Full Gibson AI Wizard System -->
+                                <div class="alert alert-info mb-3">
+                                    <i class="bi bi-info-circle"></i> <strong>Advanced Quote System Active</strong> - 
+                                    Complete our detailed wizard for the most accurate quotes.
+                                </div>
+                                
                                 <form class="quote-form" method="post" action="" novalidate>
                                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
                                     <input type="hidden" name="step" value="<?php echo $currentStep; ?>">
@@ -432,17 +516,28 @@ try {
                                         <?php $wizard->renderStep(); ?>
                                     </div>
                                 </form>
+                                
                             <?php else: ?>
                                 <!-- Simple Fallback Form -->
-                                <?php if (isset($form_success) && $form_success): ?>
-                                    <div class="alert alert-success">
-                                        <i class="bi bi-check-circle"></i>
-                                        <strong>Thank you!</strong> Your quote request has been submitted. 
-                                        We'll connect you with local painters within 24 hours.
+                                <?php if ($gibson_status !== 'connected'): ?>
+                                    <div class="alert alert-info mb-3">
+                                        <i class="bi bi-info-circle"></i> <strong>Quick Quote Mode</strong> - 
+                                        Our advanced system is temporarily unavailable, but you can still request quotes using this form.
                                     </div>
                                 <?php endif; ?>
                                 
-                                <?php if (isset($form_errors) && !empty($form_errors)): ?>
+                                <?php if ($form_success): ?>
+                                    <div class="alert alert-success">
+                                        <i class="bi bi-check-circle"></i>
+                                        <strong>Thank you!</strong> Your quote request has been submitted successfully. 
+                                        We'll connect you with local painters within 24 hours.
+                                        <div class="mt-2">
+                                            <small>You should receive a confirmation email shortly at <?php echo htmlspecialchars($_POST['email'] ?? ''); ?></small>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <?php if (!empty($form_errors)): ?>
                                     <div class="alert alert-danger">
                                         <i class="bi bi-exclamation-triangle"></i>
                                         <strong>Please fix the following errors:</strong>
@@ -457,34 +552,74 @@ try {
                                 <form method="post" action="">
                                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
                                     
-                                    <div class="mb-3">
-                                        <label for="postcode" class="form-label">Your Postcode</label>
-                                        <input type="text" class="form-control" id="postcode" name="postcode" 
-                                               placeholder="Enter your postcode" required
-                                               value="<?php echo htmlspecialchars($_POST['postcode'] ?? ''); ?>">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="name" class="form-label">Your Name *</label>
+                                            <input type="text" class="form-control" id="name" name="name" 
+                                                   placeholder="Enter your full name" required
+                                                   value="<?php echo htmlspecialchars($_POST['name'] ?? ''); ?>">
+                                        </div>
+                                        
+                                        <div class="col-md-6 mb-3">
+                                            <label for="email" class="form-label">Email Address *</label>
+                                            <input type="email" class="form-control" id="email" name="email" 
+                                                   placeholder="your.email@example.com" required
+                                                   value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="phone" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="phone" name="phone" 
+                                                   placeholder="Your phone number (optional)"
+                                                   value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>">
+                                        </div>
+                                        
+                                        <div class="col-md-6 mb-3">
+                                            <label for="postcode" class="form-label">Your Postcode *</label>
+                                            <input type="text" class="form-control" id="postcode" name="postcode" 
+                                                   placeholder="Enter your postcode" required
+                                                   value="<?php echo htmlspecialchars($_POST['postcode'] ?? ''); ?>">
+                                        </div>
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label for="job_type" class="form-label">Type of Painting Job</label>
+                                        <label for="job_type" class="form-label">Type of Painting Job *</label>
                                         <select class="form-select" id="job_type" name="job_type" required>
                                             <option value="">Select job type</option>
                                             <option value="interior" <?php echo ($_POST['job_type'] ?? '') === 'interior' ? 'selected' : ''; ?>>Interior Painting</option>
                                             <option value="exterior" <?php echo ($_POST['job_type'] ?? '') === 'exterior' ? 'selected' : ''; ?>>Exterior Painting</option>
                                             <option value="both" <?php echo ($_POST['job_type'] ?? '') === 'both' ? 'selected' : ''; ?>>Interior & Exterior</option>
                                             <option value="commercial" <?php echo ($_POST['job_type'] ?? '') === 'commercial' ? 'selected' : ''; ?>>Commercial</option>
+                                            <option value="decorating" <?php echo ($_POST['job_type'] ?? '') === 'decorating' ? 'selected' : ''; ?>>Decorating</option>
+                                            <option value="wallpaper" <?php echo ($_POST['job_type'] ?? '') === 'wallpaper' ? 'selected' : ''; ?>>Wallpaper Hanging</option>
                                         </select>
                                     </div>
                                     
                                     <div class="mb-4">
-                                        <label for="description" class="form-label">Project Description</label>
+                                        <label for="description" class="form-label">Project Description *</label>
                                         <textarea class="form-control" id="description" name="description" rows="4" 
-                                                  placeholder="Describe your painting project..." required><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
+                                                  placeholder="Please describe your painting project in detail..." required><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
+                                        <div class="form-text">Include details like room sizes, current condition, preferred colors, timeline, etc.</div>
                                     </div>
                                     
                                     <button type="submit" class="btn btn-primary w-100">
                                         <i class="bi bi-search"></i> Get Free Quotes
                                     </button>
                                 </form>
+                            <?php endif; ?>
+                            
+                            <!-- System Status (for debugging) -->
+                            <?php if (defined('ENVIRONMENT') && ENVIRONMENT === 'development'): ?>
+                                <div class="system-status">
+                                    System Status: <?php echo ucfirst(str_replace('_', ' ', $gibson_status)); ?>
+                                    <?php if ($useWizard): ?>
+                                        | Wizard: Active | Step: <?php echo $currentStep; ?>
+                                    <?php else: ?>
+                                        | Mode: Simple Form
+                                    <?php endif; ?>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -597,9 +732,9 @@ try {
     <?php endif; ?>
     
     <script>
-        // Basic functionality
+        // Enhanced functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Auto-hide success message after 10 seconds
+            // Auto-hide success message after 15 seconds
             const successAlert = document.querySelector('.alert-success');
             if (successAlert) {
                 setTimeout(function() {
@@ -608,33 +743,99 @@ try {
                     setTimeout(function() {
                         successAlert.style.display = 'none';
                     }, 500);
-                }, 10000);
+                }, 15000);
             }
             
-            // Form validation for simple form
+            // Enhanced form validation for simple form
             const form = document.querySelector('form[method="post"]');
             if (form && !form.classList.contains('quote-form')) {
                 form.addEventListener('submit', function(e) {
+                    const name = document.getElementById('name');
+                    const email = document.getElementById('email');
                     const postcode = document.getElementById('postcode');
                     const jobType = document.getElementById('job_type');
                     const description = document.getElementById('description');
                     
-                    if (postcode && jobType && description) {
-                        if (!postcode.value.trim() || !jobType.value || !description.value.trim()) {
-                            e.preventDefault();
-                            alert('Please fill in all required fields.');
-                            return false;
-                        }
-                        
-                        // Simple postcode validation
+                    let isValid = true;
+                    let errors = [];
+                    
+                    // Validate required fields
+                    if (!name.value.trim()) {
+                        errors.push('Name is required');
+                        isValid = false;
+                    }
+                    
+                    if (!email.value.trim()) {
+                        errors.push('Email is required');
+                        isValid = false;
+                    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+                        errors.push('Please enter a valid email address');
+                        isValid = false;
+                    }
+                    
+                    if (!postcode.value.trim()) {
+                        errors.push('Postcode is required');
+                        isValid = false;
+                    } else {
+                        // UK postcode validation
                         const postcodeRegex = /^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i;
                         if (!postcodeRegex.test(postcode.value.trim())) {
-                            e.preventDefault();
-                            alert('Please enter a valid UK postcode.');
-                            return false;
+                            errors.push('Please enter a valid UK postcode');
+                            isValid = false;
                         }
                     }
+                    
+                    if (!jobType.value) {
+                        errors.push('Please select a job type');
+                        isValid = false;
+                    }
+                    
+                    if (!description.value.trim()) {
+                        errors.push('Project description is required');
+                        isValid = false;
+                    } else if (description.value.trim().length < 20) {
+                        errors.push('Please provide a more detailed description (at least 20 characters)');
+                        isValid = false;
+                    }
+                    
+                    if (!isValid) {
+                        e.preventDefault();
+                        alert('Please fix the following errors:\n\n• ' + errors.join('\n• '));
+                        return false;
+                    }
+                    
+                    // Show loading state
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Submitting...';
+                    }
                 });
+            }
+            
+            // Character counter for description
+            const description = document.getElementById('description');
+            if (description) {
+                const counter = document.createElement('div');
+                counter.className = 'form-text text-end';
+                counter.style.fontSize = '0.8rem';
+                description.parentNode.appendChild(counter);
+                
+                function updateCounter() {
+                    const length = description.value.length;
+                    counter.textContent = length + ' characters';
+                    
+                    if (length < 20) {
+                        counter.style.color = '#dc3545';
+                    } else if (length < 50) {
+                        counter.style.color = '#fd7e14';
+                    } else {
+                        counter.style.color = '#198754';
+                    }
+                }
+                
+                description.addEventListener('input', updateCounter);
+                updateCounter();
             }
         });
     </script>

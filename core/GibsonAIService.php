@@ -828,6 +828,13 @@ class GibsonAIService {
         ];
     }
 
+    /**
+     * Public method to make API calls for testing connectivity
+     */
+    public function makeApiCallPublic($endpoint, $data = null, $method = 'GET') {
+        return $this->makeApiCall($endpoint, $data, $method);
+    }
+
     private function extractErrorMessage($response, $httpCode) {
         if (is_array($response)) {
             // Handle Gibson AI error format based on OpenAPI spec

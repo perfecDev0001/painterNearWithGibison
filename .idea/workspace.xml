@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/GibsonAIService.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/GibsonAIService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagnostic.php" beforeDir="false" afterPath="$PROJECT_DIR$/diagnostic.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project.env" beforeDir="false" afterPath="$PROJECT_DIR$/project.env" afterDir="false" />
@@ -74,7 +74,7 @@
       <workItem from="1750211316226" duration="2945000" />
       <workItem from="1750256427012" duration="526000" />
       <workItem from="1750256969443" duration="4386000" />
-      <workItem from="1750338370740" duration="9390000" />
+      <workItem from="1750338370740" duration="11188000" />
     </task>
     <servers />
   </component>
@@ -642,7 +642,7 @@
     <option name="indexedFilesMap">
       <map>
         <entry key="$PROJECT_DIR$/.gibson-env" value="1750002280994" />
-        <entry key="$PROJECT_DIR$/.htaccess" value="1750212818002" />
+        <entry key="$PROJECT_DIR$/.htaccess" value="1750426277151" />
         <entry key="$PROJECT_DIR$/.htaccess-emergency" value="1750002280994" />
         <entry key="$PROJECT_DIR$/.htaccess-fixed-for-live" value="1750002280994" />
         <entry key="$PROJECT_DIR$/.htaccess-minimal" value="1750002280994" />
@@ -734,7 +734,7 @@
         <entry key="$PROJECT_DIR$/debug-500.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/debug-homepage.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/deploy.sh" value="1750002280994" />
-        <entry key="$PROJECT_DIR$/diagnostic.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/diagnostic.php" value="1750426277151" />
         <entry key="$PROJECT_DIR$/emergency-index.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/forgot-password.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/gibson-mcp-status.php" value="1750002280994" />
@@ -742,8 +742,9 @@
         <entry key="$PROJECT_DIR$/index-gibson-safe.php" value="1750214018199" />
         <entry key="$PROJECT_DIR$/index-no-gibson.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/index-session-safe.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/index-simple-fix.php" value="1750426277151" />
         <entry key="$PROJECT_DIR$/index-simple.php" value="1750002280994" />
-        <entry key="$PROJECT_DIR$/index.php" value="1750338977135" />
+        <entry key="$PROJECT_DIR$/index.php" value="1750426277151" />
         <entry key="$PROJECT_DIR$/lead-claim.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/leads.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/login.php" value="1750002280994" />
@@ -848,7 +849,7 @@
         <entry key="$PROJECT_DIR$/production-ready-upload/post-job.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/production-ready-upload/privacy-policy.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/profile.php" value="1750002280994" />
-        <entry key="$PROJECT_DIR$/project.env" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/project.env" value="1750426277151" />
         <entry key="$PROJECT_DIR$/quote-bids.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/quote.php" value="1750212818002" />
         <entry key="$PROJECT_DIR$/register.php" value="1750002280994" />
@@ -872,9 +873,9 @@
         <entry key="$PROJECT_DIR$/webhook.php" value="1750002280994" />
       </map>
     </option>
-    <option name="lastCommitHash" value="1750344980586" />
-    <option name="lastIndexTimestamp" value="1750344976901" />
-    <option name="repoAccumulatedChanges" value="18" />
+    <option name="lastCommitHash" value="1750426282639" />
+    <option name="lastIndexTimestamp" value="1750426277151" />
+    <option name="repoAccumulatedChanges" value="23" />
     <option name="repoTotalFiles" value="212" />
     <option name="repositoryId" value="d02980a0-0736-4d7a-8df6-cc9037715531" />
     <option name="state" value="FULLY_INDEXED" />
