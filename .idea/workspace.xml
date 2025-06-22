@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +71,7 @@
       <workItem from="1750256969443" duration="4386000" />
       <workItem from="1750338370740" duration="11889000" />
       <workItem from="1750433164647" duration="121000" />
-      <workItem from="1750433303044" duration="1148000" />
+      <workItem from="1750433303044" duration="1479000" />
     </task>
     <servers />
   </component>
@@ -646,7 +644,7 @@
         <entry key="$PROJECT_DIR$/.htaccess-fixed-for-live" value="1750002280994" />
         <entry key="$PROJECT_DIR$/.htaccess-minimal" value="1750002280994" />
         <entry key="$PROJECT_DIR$/.htaccess-no-https-redirect" value="1750002280994" />
-        <entry key="$PROJECT_DIR$/.idea/workspace.xml" value="1750434212960" />
+        <entry key="$PROJECT_DIR$/.idea/workspace.xml" value="1750434513039" />
         <entry key="$PROJECT_DIR$/.zencoder/.gitignore" value="1750263873232" />
         <entry key="$PROJECT_DIR$/404.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/500.php" value="1750002280994" />
@@ -749,6 +747,7 @@
         <entry key="$PROJECT_DIR$/leads.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/login.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/logout.php" value="1750002280994" />
+        <entry key="$PROJECT_DIR$/logs/error.log" value="1750434513039" />
         <entry key="$PROJECT_DIR$/messaging.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/my-bids.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/payment-management.js" value="1750002280994" />
@@ -873,9 +872,9 @@
         <entry key="$PROJECT_DIR$/webhook.php" value="1750002280994" />
       </map>
     </option>
-    <option name="lastCommitHash" value="a33323bdd338f9cb1f277be5cacfb118950e5759" />
-    <option name="lastIndexTimestamp" value="1750434212960" />
-    <option name="repoAccumulatedChanges" value="28" />
+    <option name="lastCommitHash" value="04d9f07267755daebed110a7e658f8540f5a8219" />
+    <option name="lastIndexTimestamp" value="1750434687650" />
+    <option name="repoAccumulatedChanges" value="32" />
     <option name="repoTotalFiles" value="212" />
     <option name="repositoryId" value="d02980a0-0736-4d7a-8df6-cc9037715531" />
     <option name="state" value="FULLY_INDEXED" />
