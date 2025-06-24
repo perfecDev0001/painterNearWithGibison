@@ -269,3 +269,6 @@ ErrorDocument 500 /500.php
 
 # Force UTF-8 encoding
 AddDefaultCharset UTF-8
+# Payment System API Routes
+RewriteRule ^api/payment/(.*)$ api/payment-api.php/$1 [QSA,L]
+RewriteRule ^webhooks/stripe$ api/stripe-webhook.php [L]
