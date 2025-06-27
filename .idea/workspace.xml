@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" afterDir="false" />
     </list>
@@ -76,7 +75,7 @@
       <workItem from="1750338370740" duration="11889000" />
       <workItem from="1750433164647" duration="121000" />
       <workItem from="1750433303044" duration="1479000" />
-      <workItem from="1750782361344" duration="2283000" />
+      <workItem from="1750782361344" duration="4214000" />
     </task>
     <servers />
   </component>
@@ -649,8 +648,8 @@
         <entry key="$PROJECT_DIR$/.htaccess-fixed-for-live" value="1750002280994" />
         <entry key="$PROJECT_DIR$/.htaccess-minimal" value="1750002280994" />
         <entry key="$PROJECT_DIR$/.htaccess-no-https-redirect" value="1750002280994" />
-        <entry key="$PROJECT_DIR$/.idea/workspace.xml" value="1750783573798" />
-        <entry key="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" value="1750783573798" />
+        <entry key="$PROJECT_DIR$/.idea/workspace.xml" value="1750869674419" />
+        <entry key="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" value="1750869674419" />
         <entry key="$PROJECT_DIR$/.zencoder/.gitignore" value="1750263873232" />
         <entry key="$PROJECT_DIR$/404.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/500.php" value="1750002280994" />
@@ -878,11 +877,12 @@
         <entry key="$PROJECT_DIR$/webhook.php" value="1750002280994" />
       </map>
     </option>
-    <option name="lastCommitHash" value="9347b89a4e2e62d0f5c0a9eefa615c836e4c523a" />
-    <option name="lastIndexTimestamp" value="1750783573798" />
-    <option name="repoAccumulatedChanges" value="49" />
+    <option name="lastCommitHash" value="763be8113790659e98543118056f8b15bc3e51f3" />
+    <option name="lastError" value="api.zencoder.ai: Temporary failure in name resolution" />
+    <option name="lastIndexTimestamp" value="1750869674419" />
+    <option name="repoAccumulatedChanges" value="56" />
     <option name="repoTotalFiles" value="212" />
     <option name="repositoryId" value="d02980a0-0736-4d7a-8df6-cc9037715531" />
-    <option name="state" value="FULLY_INDEXED" />
+    <option name="state" value="INDEXING_FAILED" />
   </component>
 </project>
