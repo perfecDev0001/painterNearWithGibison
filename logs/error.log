@@ -227,3 +227,7 @@ Stack trace:
 [23-Jun-2025 00:54:12 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
 [23-Jun-2025 00:54:14 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
 [23-Jun-2025 00:54:14 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
+[29-Jun-2025 03:14:01 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
+[29-Jun-2025 03:14:01 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback
+[29-Jun-2025 03:14:03 Europe/London] [GibsonAI] Client Error: GET https://api.gibsonai.com/v1/-/painter-bid - HTTP 400 - Entity painter_bid does not exist
+[29-Jun-2025 03:14:03 Europe/London] [GibsonBidService] painter-bid entity not available, using local fallback

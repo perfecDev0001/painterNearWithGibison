@@ -3958,7 +3958,13 @@ select.error:focus {
     </div>
 </div>
 
+<?php endif; ?>
+
+</section>
+</div>
 </main>
+
+<?php include 'templates/footer.php'; ?>
+
 </body>
-</html>
-</style> 
+</html> 
