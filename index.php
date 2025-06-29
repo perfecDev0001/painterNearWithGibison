@@ -532,7 +532,7 @@ try {
                                         <strong>Thank you!</strong> Your quote request has been submitted successfully. 
                                         We'll connect you with local painters within 24 hours.
                                         <div class="mt-2">
-                                            <small>You should receive a confirmation email shortly at <?php echo htmlspecialchars($_POST['email'] ?? ''); ?></small>
+                                            <small>You should receive a confirmation email shortly<?php if (!empty($email)): ?> at <?php echo htmlspecialchars($email); ?><?php endif; ?></small>
                                         </div>
                                     </div>
                                 <?php endif; ?>

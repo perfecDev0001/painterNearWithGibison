@@ -182,7 +182,8 @@ class SecurityManager {
             
             case 'string':
             default:
-                return filter_var($input, FILTER_SANITIZE_STRING);
+                // FILTER_SANITIZE_STRING is deprecated in PHP 8.1+
+                return htmlspecialchars(trim($input), ENT_QUOTES | ENT_HTML5, 'UTF-8');
         }
     }
     
@@ -332,8 +333,21 @@ class SecurityManager {
     
     /**
      * SQL injection prevention
+     * NOTE: This method is deprecated. Use prepared statements instead.
      */
     public function escapeSql($value) {
+        // Deprecated: Use prepared statements for proper SQL injection prevention
+        error_log('Warning: escapeSql() is deprecated. Use prepared statements instead.');
+        return addslashes($value);
+    }
+    
+    /**
+     * Secure way to escape SQL values (deprecated - use prepared statements)
+     */
+    public function escapeSqlValue($value, $connection = null) {
+        if ($connection && method_exists($connection, 'real_escape_string')) {
+            return $connection->real_escape_string($value);
+        }
         return addslashes($value);
     }
     

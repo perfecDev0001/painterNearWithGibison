@@ -55,7 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     if (empty($errors)) {
-        if ($auth->login($email, $password)) {
+        $loginResult = $auth->login($email, $password);
+        if ($loginResult && isset($loginResult['success']) && $loginResult['success']) {
             header("Location: dashboard.php");
             exit();
         } else {

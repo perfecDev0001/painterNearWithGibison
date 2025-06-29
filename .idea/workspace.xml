@@ -7,6 +7,10 @@
     <list default="true" id="9eefe147-87b0-46b5-a7e8-ed4e1e3b81bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/SecurityManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/SecurityManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +79,7 @@
       <workItem from="1750338370740" duration="11889000" />
       <workItem from="1750433164647" duration="121000" />
       <workItem from="1750433303044" duration="1479000" />
-      <workItem from="1750782361344" duration="4214000" />
+      <workItem from="1750782361344" duration="7970000" />
     </task>
     <servers />
   </component>
@@ -648,8 +652,8 @@
         <entry key="$PROJECT_DIR$/.htaccess-fixed-for-live" value="1750002280994" />
         <entry key="$PROJECT_DIR$/.htaccess-minimal" value="1750002280994" />
         <entry key="$PROJECT_DIR$/.htaccess-no-https-redirect" value="1750002280994" />
-        <entry key="$PROJECT_DIR$/.idea/workspace.xml" value="1750869674419" />
-        <entry key="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" value="1750869674419" />
+        <entry key="$PROJECT_DIR$/.idea/workspace.xml" value="1751043974791" />
+        <entry key="$PROJECT_DIR$/.idea/zencoder-chats-dedicated.xml" value="1751004075235" />
         <entry key="$PROJECT_DIR$/.zencoder/.gitignore" value="1750263873232" />
         <entry key="$PROJECT_DIR$/404.php" value="1750002280994" />
         <entry key="$PROJECT_DIR$/500.php" value="1750002280994" />
@@ -877,10 +881,10 @@
         <entry key="$PROJECT_DIR$/webhook.php" value="1750002280994" />
       </map>
     </option>
-    <option name="lastCommitHash" value="763be8113790659e98543118056f8b15bc3e51f3" />
-    <option name="lastError" value="api.zencoder.ai: Temporary failure in name resolution" />
-    <option name="lastIndexTimestamp" value="1750869674419" />
-    <option name="repoAccumulatedChanges" value="56" />
+    <option name="lastCommitHash" value="ee3d9f5ec87f00840e32cdccd2fdba8a9283838b" />
+    <option name="lastError" value="api.zencoder.ai" />
+    <option name="lastIndexTimestamp" value="1751043974791" />
+    <option name="repoAccumulatedChanges" value="71" />
     <option name="repoTotalFiles" value="212" />
     <option name="repositoryId" value="d02980a0-0736-4d7a-8df6-cc9037715531" />
     <option name="state" value="INDEXING_FAILED" />
