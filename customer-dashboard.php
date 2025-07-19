@@ -3958,8 +3958,6 @@ select.error:focus {
     </div>
 </div>
 
-<?php endif; ?>
-
 </section>
 </div>
 </main>

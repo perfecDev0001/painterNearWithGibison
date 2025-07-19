@@ -767,5 +767,19 @@
         "uuid": "113bd499-45f2-4139-bd99-fb433faf0ac6",
         "id": "local_6846eb9240b36",
         "storage_method": "local_json"
+    },
+    {
+        "customer_name": "sample@gmail.com",
+        "customer_email": "sample@gmail.com",
+        "customer_phone": "+44 7123 456789",
+        "job_title": "Commercial",
+        "job_description": "Sample Painter",
+        "location": "EC1A 1BB",
+        "status": "open",
+        "created_at": "2025-07-17 20:44:19",
+        "updated_at": "2025-07-17 20:44:19",
+        "uuid": "5a36648a-8ecc-48e3-bb6e-d9ee57d9715d",
+        "id": "local_68795293ddfb9",
+        "storage_method": "local_json"
     }
 ]
