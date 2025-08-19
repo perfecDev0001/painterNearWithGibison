@@ -139,32 +139,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             break;
             
-        case 'upload_document':
-            if (isset($_SESSION['customer_authenticated'])) {
-                $leadId = $_POST['lead_id'] ?? '';
-                $documentType = $_POST['document_type'] ?? '';
-                
-                if ($leadId && isset($_FILES['document']) && $_FILES['document']['error'] === UPLOAD_ERR_OK) {
-                    // Store document info in session (in production, save to database/storage)
-                    if (!isset($_SESSION['customer_documents'])) {
-                        $_SESSION['customer_documents'] = [];
-                    }
-                    
-                    $fileName = $_FILES['document']['name'];
-                    $fileSize = $_FILES['document']['size'];
-                    
-                    $_SESSION['customer_documents'][$leadId][] = [
-                        'type' => $documentType,
-                        'name' => $fileName,
-                        'size' => $fileSize,
-                        'uploaded_at' => date('Y-m-d H:i:s')
-                    ];
-                    
-                    $success = 'Document uploaded successfully!';
-                }
-            }
-            break;
-            
         case 'save_project_notes':
             if (isset($_SESSION['customer_authenticated'])) {
                 $leadId = $_POST['lead_id'] ?? '';
@@ -286,26 +260,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         $success = 'Document uploaded successfully!';
                     }
-                }
-            }
-            break;
-            
-        case 'save_project_notes':
-            if (isset($_SESSION['customer_authenticated'])) {
-                $leadId = $_POST['lead_id'] ?? '';
-                $notes = trim($_POST['notes'] ?? '');
-                
-                if ($leadId) {
-                    if (!isset($_SESSION['customer_project_notes'])) {
-                        $_SESSION['customer_project_notes'] = [];
-                    }
-                    
-                    $_SESSION['customer_project_notes'][$leadId] = [
-                        'notes' => $notes,
-                        'updated_at' => date('Y-m-d H:i:s')
-                    ];
-                    
-                    $success = 'Project notes saved successfully!';
                 }
             }
             break;
@@ -1182,7 +1136,218 @@ function updateURL() {
     window.location.href = newURL;
 }
 
-// Modal Functions - Removed duplicate functions, using ModalManager system instead
+// Modal Functions
+function openReviewModal(leadId, painterId) {
+    document.getElementById('reviewLeadId').value = leadId;
+    document.getElementById('reviewPainterId').value = painterId;
+    document.getElementById('reviewText').value = '';
+    
+    // Reset rating
+    const ratingInputs = document.querySelectorAll('input[name="rating"]');
+    ratingInputs.forEach(input => input.checked = false);
+    
+    document.getElementById('reviewModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => focusModal('reviewModal'), 100);
+}
+
+// Unified Modal Management System
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) {
+        console.warn(`Modal with ID ${modalId} not found`);
+        return false;
+    }
+    
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    document.body.classList.remove('modal-open');
+    
+    // Return focus to the trigger element if available
+    const triggerElement = modal.getAttribute('data-trigger');
+    if (triggerElement) {
+        const trigger = document.getElementById(triggerElement);
+        if (trigger) trigger.focus();
+    }
+    
+    // Clear any form data if needed
+    const form = modal.querySelector('form');
+    if (form && form.hasAttribute('data-reset-on-close')) {
+        form.reset();
+    }
+    
+    return true;
+}
+
+// Enhanced appointment modal
+function openAppointmentModal(leadId, painterId, painterName = '') {
+    const modal = document.getElementById('appointmentModal');
+    if (!modal) {
+        console.error('Appointment modal not found');
+        return false;
+    }
+    
+    // Set form values
+    const leadIdInput = document.getElementById('appointmentLeadId');
+    const painterIdInput = document.getElementById('appointmentPainterId');
+    
+    if (leadIdInput) leadIdInput.value = leadId;
+    if (painterIdInput) painterIdInput.value = painterId;
+    
+    // Reset form
+    const form = modal.querySelector('form');
+    if (form) {
+        form.reset();
+        // Re-set hidden values after reset
+        if (leadIdInput) leadIdInput.value = leadId;
+        if (painterIdInput) painterIdInput.value = painterId;
+    }
+    
+    // Update modal title if painter name is provided
+    if (painterName) {
+        const title = modal.querySelector('h3');
+        if (title) {
+            title.innerHTML = `<i class="bi bi-calendar-check"></i> Schedule Appointment with ${painterName}`;
+        }
+    }
+    
+    // Set minimum date to today
+    const dateInput = document.getElementById('appointmentDate');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        
+        // Remove existing event listeners to prevent duplicates
+        const newDateInput = dateInput.cloneNode(true);
+        dateInput.parentNode.replaceChild(newDateInput, dateInput);
+        
+        // Add fresh event listener
+        newDateInput.addEventListener('change', function() {
+            checkTimeSlotAvailability(this.value, leadId, painterId);
+        });
+    }
+    
+    // Show modal
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
+    
+    // Focus management
+    setTimeout(() => focusModal('appointmentModal'), 100);
+    
+    return true;
+}
+
+// Enhanced quote modification modal
+function openQuoteModificationModal(leadId, bidId, projectTitle = '') {
+    const modal = document.getElementById('quoteModificationModal');
+    if (!modal) {
+        console.error('Quote modification modal not found');
+        return false;
+    }
+    
+    // Set form values
+    const leadIdInput = document.getElementById('modificationLeadId');
+    const bidIdInput = document.getElementById('modificationBidId');
+    
+    if (leadIdInput) leadIdInput.value = leadId;
+    if (bidIdInput) bidIdInput.value = bidId;
+    
+    // Reset form
+    const form = modal.querySelector('form');
+    if (form) {
+        form.reset();
+        // Re-set hidden values after reset
+        if (leadIdInput) leadIdInput.value = leadId;
+        if (bidIdInput) bidIdInput.value = bidId;
+    }
+    
+    // Update modal title if project title is provided
+    if (projectTitle) {
+        const title = modal.querySelector('h3');
+        if (title) {
+            title.innerHTML = `<i class="bi bi-pencil-square"></i> Request Quote Modification - ${projectTitle}`;
+        }
+    }
+    
+    // Show modal
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
+    
+    // Focus management
+    setTimeout(() => focusModal('quoteModificationModal'), 100);
+    
+    return true;
+}
+
+// Enhanced gallery modal
+function openGalleryModal(leadId, projectTitle = '') {
+    const modal = document.getElementById('galleryModal');
+    if (!modal) {
+        console.error('Gallery modal not found');
+        return false;
+    }
+    
+    // Update modal title if project title is provided
+    if (projectTitle) {
+        const title = modal.querySelector('h3');
+        if (title) {
+            title.innerHTML = `<i class="bi bi-images"></i> Project Gallery - ${projectTitle}`;
+        }
+    }
+    
+    // Show modal
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
+    
+    // Initialize gallery functionality
+    initializeGallery(leadId);
+    loadExistingPhotos(leadId);
+    
+    // Focus management
+    setTimeout(() => focusModal('galleryModal'), 100);
+    
+    return true;
+}
+
+// Initialize gallery functionality
+function initializeGallery(leadId) {
+    const galleryUpload = document.getElementById('galleryUpload');
+    const uploadZone = document.querySelector('.customer-dashboard__gallery-upload-zone');
+    
+    if (!galleryUpload || !uploadZone) {
+        console.warn('Gallery elements not found');
+        return;
+    }
+    
+    // Remove existing event listeners to prevent duplicates
+    const newUpload = galleryUpload.cloneNode(true);
+    galleryUpload.parentNode.replaceChild(newUpload, galleryUpload);
+    
+    // File upload handler
+    newUpload.addEventListener('change', function(e) {
+        handleGalleryUpload(e.target.files, leadId);
+    });
+    
+    // Drag and drop functionality
+    uploadZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadZone.classList.add('dragover');
+    });
+    
+    uploadZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+    });
+    
+    uploadZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+        handleGalleryUpload(e.dataTransfer.files, leadId);
+    });
+}
 
 // Handle gallery file upload
 function handleGalleryUpload(files, leadId) {
@@ -2068,9 +2233,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-</body>
-</html>
 <style>
+/* Customer Dashboard Styles */
+.customer-dashboard {
+    min-height: 100vh;
+    background: #f8fafc;
+    padding: 2rem 1rem;
+}
 
 .customer-dashboard__container {
     max-width: 1200px;
@@ -3603,135 +3772,151 @@ select.error:focus {
         gap: 0.5rem;
         align-items: stretch;
     }
+    
+    .customer-dashboard__appointment-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+    
+    .customer-dashboard__gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    .customer-dashboard__notification {
+        left: 10px;
+        right: 10px;
+        max-width: none;
+    }
 }
-
 </style>
 
-<script>
-// Customer Dashboard JavaScript functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all interactive elements
-    initializeModals();
-    initializeFileUploads();
-    initializeFormValidation();
-    initializeNotifications();
-});
-
-// Modal functionality
-function initializeModals() {
-    const modals = document.querySelectorAll('.customer-dashboard__modal');
-    const modalTriggers = document.querySelectorAll('[data-modal]');
-    const modalCloses = document.querySelectorAll('.customer-dashboard__modal-close, .customer-dashboard__modal-overlay');
-    
-    modalTriggers.forEach(trigger => {
-        trigger.addEventListener('click', function(e) {
-            e.preventDefault();
-            const modalId = this.getAttribute('data-modal');
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-        });
-    });
-    
-    modalCloses.forEach(close => {
-        close.addEventListener('click', function(e) {
-            if (e.target === this) {
-                const modal = this.closest('.customer-dashboard__modal');
-                if (modal) {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            }
-        });
-    });
-}
-
-// File upload functionality
-function initializeFileUploads() {
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    
-    fileInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const maxSize = 5 * 1024 * 1024; // 5MB
-                if (file.size > maxSize) {
-                    alert('File too large. Maximum size is 5MB.');
-                    this.value = '';
-                    return;
-                }
-                
-                const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/gif'];
-                if (!allowedTypes.includes(file.type)) {
-                    alert('Invalid file type. Please upload PDF or image files only.');
-                    this.value = '';
-                    return;
-                }
-            }
-        });
-    });
-}
-
-// Form validation
-function initializeFormValidation() {
-    const forms = document.querySelectorAll('form');
-    
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            const requiredFields = this.querySelectorAll('[required]');
-            let isValid = true;
+<!-- Phase 2: Appointment Scheduling Modal -->
+<div id="appointmentModal" class="customer-dashboard__modal">
+    <div class="customer-dashboard__modal-content">
+        <div class="customer-dashboard__modal-header">
+            <h3><i class="bi bi-calendar-check"></i> Schedule Appointment</h3>
+            <button class="customer-dashboard__modal-close" onclick="closeModal('appointmentModal')">&times;</button>
+        </div>
+        <form method="post" class="customer-dashboard__modal-form">
+            <input type="hidden" name="action" value="schedule_appointment">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+            <input type="hidden" name="lead_id" id="appointmentLeadId">
+            <input type="hidden" name="painter_id" id="appointmentPainterId">
             
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.classList.add('error');
-                } else {
-                    field.classList.remove('error');
-                }
-            });
+            <div class="customer-dashboard__form-group">
+                <label for="appointmentType">Appointment Type:</label>
+                <select name="appointment_type" id="appointmentType" required>
+                    <option value="">Select type</option>
+                    <option value="initial_consultation">Initial Consultation</option>
+                    <option value="site_measurement">Site Measurement</option>
+                    <option value="color_consultation">Color Consultation</option>
+                    <option value="progress_check">Progress Check</option>
+                    <option value="final_inspection">Final Inspection</option>
+                </select>
+            </div>
             
-            if (!isValid) {
-                e.preventDefault();
-                showNotification('Please fill in all required fields.', 'error');
-            }
-        });
-    });
-}
+            <div class="customer-dashboard__form-group">
+                <label for="appointmentDate">Date:</label>
+                <input type="date" name="appointment_date" id="appointmentDate" required min="<?php echo date('Y-m-d'); ?>">
+            </div>
+            
+            <div class="customer-dashboard__form-group">
+                <label for="appointmentTime">Time:</label>
+                <select name="appointment_time" id="appointmentTime" required>
+                    <option value="">Select time</option>
+                    <option value="09:00">9:00 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="13:00">1:00 PM</option>
+                    <option value="14:00">2:00 PM</option>
+                    <option value="15:00">3:00 PM</option>
+                    <option value="16:00">4:00 PM</option>
+                    <option value="17:00">5:00 PM</option>
+                </select>
+            </div>
+            
+            <div class="customer-dashboard__modal-actions">
+                <button type="button" onclick="closeModal('appointmentModal')" class="customer-dashboard__btn customer-dashboard__btn--outline">Cancel</button>
+                <button type="submit" class="customer-dashboard__btn customer-dashboard__btn--primary">Schedule Appointment</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-// Notification system
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `customer-dashboard__notification customer-dashboard__notification--${type}`;
-    notification.textContent = message;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 100);
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 3000);
-}
+<!-- Phase 2: Quote Modification Modal -->
+<div id="quoteModificationModal" class="customer-dashboard__modal">
+    <div class="customer-dashboard__modal-content">
+        <div class="customer-dashboard__modal-header">
+            <h3><i class="bi bi-pencil-square"></i> Request Quote Modification</h3>
+            <button class="customer-dashboard__modal-close" onclick="closeModal('quoteModificationModal')">&times;</button>
+        </div>
+        <form method="post" class="customer-dashboard__modal-form">
+            <input type="hidden" name="action" value="request_quote_modification">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+            <input type="hidden" name="lead_id" id="modificationLeadId">
+            <input type="hidden" name="bid_id" id="modificationBidId">
+            
+            <div class="customer-dashboard__form-group">
+                <label for="modificationType">Modification Type:</label>
+                <select name="modification_type" id="modificationType" required>
+                    <option value="">Select modification type</option>
+                    <option value="scope_change">Scope Change</option>
+                    <option value="material_upgrade">Material Upgrade</option>
+                    <option value="timeline_adjustment">Timeline Adjustment</option>
+                    <option value="pricing_query">Pricing Query</option>
+                    <option value="specification_change">Specification Change</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="customer-dashboard__form-group">
+                <label for="modificationDetails">Details:</label>
+                <textarea name="modification_details" id="modificationDetails" rows="4" 
+                          placeholder="Please describe your requested changes or questions in detail..."></textarea>
+            </div>
+            
+            <div class="customer-dashboard__modal-actions">
+                <button type="button" onclick="closeModal('quoteModificationModal')" class="customer-dashboard__btn customer-dashboard__btn--outline">Cancel</button>
+                <button type="submit" class="customer-dashboard__btn customer-dashboard__btn--primary">Send Request</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-function initializeNotifications() {
-    // Auto-hide success/error messages after 5 seconds
-    const alerts = document.querySelectorAll('.customer-dashboard__alert');
-    alerts.forEach(alert => {
-        setTimeout(() => {
-            alert.style.opacity = '0';
-            setTimeout(() => {
-                alert.style.display = 'none';
-            }, 300);
-        }, 5000);
-    });
-}
-</script>
+<!-- Phase 2: Project Gallery Modal -->
+<div id="galleryModal" class="customer-dashboard__modal customer-dashboard__modal--large">
+    <div class="customer-dashboard__modal-content">
+        <div class="customer-dashboard__modal-header">
+            <h3><i class="bi bi-images"></i> Project Gallery</h3>
+            <button class="customer-dashboard__modal-close" onclick="closeModal('galleryModal')">&times;</button>
+        </div>
+        <div class="customer-dashboard__gallery-content">
+            <div class="customer-dashboard__gallery-upload-zone">
+                <input type="file" id="galleryUpload" multiple accept="image/*" style="display: none;">
+                <button onclick="document.getElementById('galleryUpload').click()" class="customer-dashboard__gallery-upload-btn">
+                    <i class="bi bi-cloud-upload"></i>
+                    <span>Upload Photos</span>
+                    <small>Drag & drop or click to select</small>
+                </button>
+            </div>
+            <div class="customer-dashboard__gallery-grid">
+                <!-- Gallery images would be displayed here -->
+                <div class="gallery-placeholder">
+                    <i class="bi bi-image"></i>
+                    <p>No photos uploaded yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+</section>
+</div>
 </main>
+
+<?php include 'templates/footer.php'; ?>
+
+</body>
+</html> 
