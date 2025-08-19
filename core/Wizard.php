@@ -48,7 +48,7 @@ class Wizard {
                 } else {
                     $this->showSummary();
                     session_destroy();
-                    return;
+                    exit;
                 }
             } else {
                 $this->errors = $step->errors;
@@ -67,6 +67,8 @@ class Wizard {
         
         $stepFile = __DIR__ . '/../steps/Step' . ($this->currentStep + 1) . '_' . $this->steps[$this->currentStep]['id'] . '.php';
         if (file_exists($stepFile)) {
+            $wizard = $this; // Make wizard instance available to step file
+            $stepData = $this->getStepData(); // Make step data available
             include $stepFile;
         } else {
             echo '<div class="step__error">Step file not found: ' . htmlspecialchars($stepFile) . '</div>';

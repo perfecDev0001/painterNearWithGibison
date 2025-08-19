@@ -1,17 +1,19 @@
+<section class="step step--contact-details" aria-labelledby="step-contact-details-label">
     <div class="step__header">
         <div class="step__icon" aria-hidden="true">📞</div>
         <h2 id="step-contact-details-label" class="step__title">Contact Details</h2>
         <p class="step__description">We'll use these details to send you your personalized quotes</p>
     </div>
     
-    <!-- <form method="post" class="step__form"> -->
+    <div class="step__form">
         <div class="form-group">
             <label class="form-label" for="fullname">
                 <span class="label-icon">👤</span>
                 Full Name *
             </label>
             <input type="text" id="fullname" name="fullname" class="form-input" required 
-                   placeholder="Enter your full name" autocomplete="name" />
+                   placeholder="Enter your full name" autocomplete="name" 
+                   value="<?php echo isset($wizard) ? htmlspecialchars($wizard->getStepData()['fullname'] ?? '') : ''; ?>" />
         </div>
         
         <div class="form-group">
@@ -20,7 +22,8 @@
                 Email Address *
             </label>
             <input type="email" id="email" name="email" class="form-input" required 
-                   placeholder="Enter your email address" autocomplete="email" />
+                   placeholder="Enter your email address" autocomplete="email" 
+                   value="<?php echo isset($wizard) ? htmlspecialchars($wizard->getStepData()['email'] ?? '') : ''; ?>" />
         </div>
         
         <div class="form-group">
@@ -29,7 +32,8 @@
                 Phone Number *
             </label>
             <input type="tel" id="phone" name="phone" class="form-input" required 
-                   pattern="[0-9\-\+ ]{10,15}" placeholder="Enter your phone number" autocomplete="tel" />
+                   pattern="[0-9\-\+ ]{10,15}" placeholder="Enter your phone number" autocomplete="tel" 
+                   value="<?php echo isset($wizard) ? htmlspecialchars($wizard->getStepData()['phone'] ?? '') : ''; ?>" />
         </div>
         
         <div class="form-actions">
@@ -38,7 +42,7 @@
                 Get My Free Quotes
             </button>
         </div>
-    <!-- </form> -->
+    </div>
 
 <style>
 .step--contact-details {
@@ -236,15 +240,16 @@
 <script>
 // Enhanced form interaction for Step 6 - Updated for new styling
 document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.querySelector('.step--contact-details .step__form');
-    if (!contactForm) return;
+    const contactFormContainer = document.querySelector('.step--contact-details .step__form');
+    const parentForm = document.querySelector('form'); // Find the actual form wrapper
+    if (!contactFormContainer || !parentForm) return;
     
-    const inputs = contactForm.querySelectorAll('.form-input');
-    const submitButton = contactForm.querySelector('.btn-primary');
-    const formGroups = contactForm.querySelectorAll('.form-group');
+    const inputs = contactFormContainer.querySelectorAll('.form-input');
+    const submitButton = contactFormContainer.querySelector('.btn-primary');
+    const formGroups = contactFormContainer.querySelectorAll('.form-group');
     
     // Add loading state on form submission
-    contactForm.addEventListener('submit', function(e) {
+    parentForm.addEventListener('submit', function(e) {
         if (submitButton) {
             submitButton.classList.add('loading');
             const btnIcon = submitButton.querySelector('.btn-icon');
@@ -348,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, { threshold: 0.1 });
     
-    observer.observe(contactForm);
+    observer.observe(contactFormContainer);
     
     // Initialize form groups for staggered animation
     formGroups.forEach(group => {
@@ -373,4 +378,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-</script> 
+</script>
+</section> 

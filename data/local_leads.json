@@ -795,5 +795,61 @@
         "uuid": "89a3b418-2eed-4a8a-be24-77947a57d178",
         "id": "local_68a4c720b0025",
         "storage_method": "local_json"
+    },
+    {
+        "customer_name": "JohnJame744",
+        "customer_email": "ilchyshynv0204@gmail.com",
+        "customer_phone": " +44 7911 123456",
+        "job_title": "Residential",
+        "job_description": "sd",
+        "location": "W1A 6HQ",
+        "status": "open",
+        "created_at": "2025-08-19 22:08:07",
+        "updated_at": "2025-08-19 22:08:07",
+        "uuid": "4a52f89a-1271-4717-a7a0-573c09058290",
+        "id": "local_68a4e7b7cfc2f",
+        "storage_method": "local_json"
+    },
+    {
+        "customer_name": "kewww",
+        "customer_email": "admin@smartpricetool.com",
+        "customer_phone": "+44 7911 123 456",
+        "job_title": "Residential",
+        "job_description": "hjyytuytuytu",
+        "location": "W1A 6HQ",
+        "status": "open",
+        "created_at": "2025-08-19 22:18:06",
+        "updated_at": "2025-08-19 22:18:06",
+        "uuid": "e3672990-dba2-4f8c-95f5-0c275a05f814",
+        "id": "local_68a4ea0f439e5",
+        "storage_method": "local_json"
+    },
+    {
+        "customer_name": "JohnJame",
+        "customer_email": "ilchyshynv0204@gmail.com",
+        "customer_phone": "+44 7911 123 456",
+        "job_title": "Commercial",
+        "job_description": "ggegwegsg",
+        "location": "W1A 6HQ",
+        "status": "open",
+        "created_at": "2025-08-19 22:23:51",
+        "updated_at": "2025-08-19 22:23:51",
+        "uuid": "8c969f56-58cc-48a0-a8b0-89f152a7b825",
+        "id": "local_68a4eb67d5378",
+        "storage_method": "local_json"
+    },
+    {
+        "customer_name": "JohnJame",
+        "customer_email": "realdev078@gmail.com",
+        "customer_phone": "+44 7911 123 456",
+        "job_title": "Residential",
+        "job_description": "brw",
+        "location": "W1A 6HQ",
+        "status": "open",
+        "created_at": "2025-08-19 22:47:38",
+        "updated_at": "2025-08-19 22:47:38",
+        "uuid": "505d3ab5-6260-4e23-b90c-f2d4b7986abc",
+        "id": "local_68a4f0fb111f0",
+        "storage_method": "local_json"
     }
 ]
