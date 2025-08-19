@@ -25,11 +25,15 @@
         Painter Near Me
             </a>
             <button class="nav__toggle" aria-label="Open menu" onclick="document.querySelector('.nav__links').classList.toggle('nav__links--open')">&#9776;</button>
-            <ul class="nav__links">
-                <li><a class="nav__link" href="/how-it-works.php">How it Works</a></li>
-                <li><a class="nav__link" href="/customer-dashboard.php">My Projects</a></li>
-                <li><a class="nav__link" href="/contact.php">Contact</a></li>
-            </ul>
+            <div class="nav__links" id="navLinks">
+                <a class="nav__link" href="/how-it-works.php">How it Works</a>
+            </div>
+            <div class="nav__links" id="navLinks">
+                <a class="nav__link" href="/customer-dashboard.php">My Projects</a>
+            </div>
+            <div class="nav__links" id="navLinks">
+                <a class="nav__link" href="/contact.php">Contact</a>
+            </div>
             <div class="nav__links" id="navLinks">
                 <a href="/#testimonials" class="nav__link">Testimonials</a>
             </div>

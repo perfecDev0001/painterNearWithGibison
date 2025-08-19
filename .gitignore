@@ -1,1 +1,96 @@
-logs/*
+# Environment files (contain sensitive data)
+*.env
+.env
+.env.*
+project.env
+.gibson-env
+
+# Log files
+logs/
+*.log
+error.log
+access.log
+debug.log
+gibson.log
+quotes.log
+
+# Temporary files
+tmp/
+temp/
+cache/
+*.tmp
+*.cache
+
+# Upload directories
+uploads/
+upload/
+files/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Composer
+vendor/
+composer.lock
+
+# Node modules (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# PHP specific
+*.php~
+.phpunit.result.cache
+
+# Backup files
+*.bak
+*.backup
+*.old
+*_backup
+*_old
+
+# System files
+.htaccess.bak
+.htaccess.old
+
+# Database dumps
+*.sql
+*.db
+*.sqlite
+
+# Configuration backups
+config/*.bak
+config/*.old
+configs/*.bak
+configs/*.old
+
+# Production ready upload directory (development files)
+production-ready-upload/logs/
+production-ready-upload/*.log
+
+# Test files created during development
+test-gibson-connection.php
+check-gibson.php
+list-gibson-entities.php
+debug-*.php
+test-*.php
+simple-test.php
+comprehensive-test.php
+
+# Any file with sensitive data patterns
+*password*
+*secret*
+*key*
+*token*
+*credential*
+
+# But keep .htaccess files that are needed
+!.htaccess
+!*/logs/.htaccess
