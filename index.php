@@ -508,7 +508,7 @@ try {
                                     Complete our detailed wizard for the most accurate quotes.
                                 </div>
                                 
-                                <form class="quote-form" method="post" action="" novalidate>
+                                <form class="" method="post" action="" novalidate>
                                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
                                     <input type="hidden" name="step" value="<?php echo $currentStep; ?>">
                                     
