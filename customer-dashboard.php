@@ -3792,7 +3792,7 @@ select.error:focus {
 </style>
 
 <!-- Phase 2: Appointment Scheduling Modal -->
-<div id="appointmentModal" class="customer-dashboard__modal">
+<div id="appointmentModal" class="customer-dashboard__modal" style="display: none;">
     <div class="customer-dashboard__modal-content">
         <div class="customer-dashboard__modal-header">
             <h3><i class="bi bi-calendar-check"></i> Schedule Appointment</h3>
@@ -3846,7 +3846,7 @@ select.error:focus {
 </div>
 
 <!-- Phase 2: Quote Modification Modal -->
-<div id="quoteModificationModal" class="customer-dashboard__modal">
+<div id="quoteModificationModal" class="customer-dashboard__modal" style="display: none;">
     <div class="customer-dashboard__modal-content">
         <div class="customer-dashboard__modal-header">
             <h3><i class="bi bi-pencil-square"></i> Request Quote Modification</h3>
@@ -3886,7 +3886,7 @@ select.error:focus {
 </div>
 
 <!-- Phase 2: Project Gallery Modal -->
-<div id="galleryModal" class="customer-dashboard__modal customer-dashboard__modal--large">
+<div id="galleryModal" class="customer-dashboard__modal customer-dashboard__modal--large" style="display: none;">
     <div class="customer-dashboard__modal-content">
         <div class="customer-dashboard__modal-header">
             <h3><i class="bi bi-images"></i> Project Gallery</h3>
