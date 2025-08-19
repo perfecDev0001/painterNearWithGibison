@@ -1,16 +1,17 @@
-<?php include 'templates/header.php'; ?>
-<head>
-  <title>How it Works | Painter Near Me</title>
-  <meta name="description" content="Learn how Painter Near Me's quote process works. Get fast, accurate painter quotes in a few easy steps." />
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Painter Near Me",
-      "url": "https://painter-near-me.co.uk"
-    }
-  </script>
-</head>
+<?php
+// Set page-specific variables before including header
+$page_title = "How it Works | Painter Near Me";
+$page_description = "Learn how Painter Near Me's quote process works. Get fast, accurate painter quotes in a few easy steps.";
+$structured_data = [
+    "@context" => "https://schema.org",
+    "@type" => "LocalBusiness", 
+    "name" => "Painter Near Me",
+    "url" => "https://painter-near-me.co.uk"
+];
+
+// Include the consistent header
+include 'templates/header.php'; 
+?>
 
 <main role="main">
   <section class="howitworks-hero hero">
@@ -1084,4 +1085,11 @@ if ('IntersectionObserver' in window) {
 .faq-item:nth-child(4) { transition-delay: 0.4s; }
 .faq-item:nth-child(5) { transition-delay: 0.5s; }
 .faq-item:nth-child(6) { transition-delay: 0.6s; }
+
 </style>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>
