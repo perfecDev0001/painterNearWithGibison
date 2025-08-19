@@ -470,6 +470,9 @@ include 'templates/header.php';
     }
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <main class="customer-dashboard" role="main">
@@ -2234,33 +2237,84 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-/* Customer Dashboard Styles */
+/* Modern Customer Dashboard Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
 .customer-dashboard {
     min-height: 100vh;
-    background: #f8fafc;
-    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 1rem;
+    position: relative;
+}
+
+.customer-dashboard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
 }
 
 .customer-dashboard__container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
-/* Login Section */
+/* Login Section - Modern Glass Morphism */
 .customer-dashboard__login {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;
+    min-height: 100vh;
+    padding: 2rem;
 }
 
 .customer-dashboard__login-container {
-    background: #fff;
-    border-radius: 1.5rem;
-    box-shadow: 0 8px 32px rgba(0,176,80,0.10), 0 1.5px 8px rgba(0,0,0,0.04);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 8px 32px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
     padding: 3rem 2.5rem;
-    max-width: 500px;
+    max-width: 480px;
     width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.customer-dashboard__login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { background-position: 200% 0; }
+    50% { background-position: -200% 0; }
 }
 
 .customer-dashboard__login-header {
@@ -2269,22 +2323,28 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .customer-dashboard__logo {
-    height: 3.5rem;
+    height: 4rem;
     width: auto;
     margin-bottom: 1.5rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
 }
 
 .customer-dashboard__login-title {
-    color: #00b050;
-    font-size: 2.2rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.5rem;
     font-weight: 800;
     margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
 }
 
 .customer-dashboard__login-subtitle {
-    color: #6b7280;
+    color: #64748b;
     font-size: 1.1rem;
     margin: 0;
+    font-weight: 500;
 }
 
 .customer-dashboard__login-form {
@@ -2297,204 +2357,338 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .customer-dashboard__label {
     display: block;
-    font-weight: 700;
-    color: #00b050;
-    margin-bottom: 0.5rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
 }
 
 .customer-dashboard__input {
     width: 100%;
-    padding: 1rem 1.2rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 1.2rem;
-    font-size: 1.1rem;
-    transition: border-color 0.2s;
+    padding: 1.2rem 1.5rem;
+    border: 2px solid rgba(148, 163, 184, 0.2);
+    border-radius: 16px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
 }
 
 .customer-dashboard__input:focus {
-    border-color: #00b050;
+    border-color: #667eea;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(0,176,80,0.1);
+    box-shadow: 
+        0 0 0 4px rgba(102, 126, 234, 0.1),
+        0 8px 24px rgba(102, 126, 234, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-1px);
 }
 
 .customer-dashboard__help-text {
-    color: #666;
-    font-size: 0.9rem;
+    color: #64748b;
+    font-size: 0.875rem;
     margin-top: 0.5rem;
+    font-weight: 500;
 }
 
 .customer-dashboard__submit {
     width: 100%;
-    background: #00b050;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
-    font-weight: 700;
+    font-weight: 600;
     border: none;
-    border-radius: 1.2rem;
-    padding: 1rem 0;
+    border-radius: 16px;
+    padding: 1.2rem 0;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.customer-dashboard__submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
 }
 
 .customer-dashboard__submit:hover {
-    background: #00913d;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
+}
+
+.customer-dashboard__submit:hover::before {
+    left: 100%;
+}
+
+.customer-dashboard__submit:active {
+    transform: translateY(0);
 }
 
 .customer-dashboard__login-help {
-    padding: 1.5rem;
-    background: #f8fafc;
-    border-radius: 1rem;
+    padding: 2rem;
+    background: rgba(248, 250, 252, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
     text-align: center;
+    border: 1px solid rgba(148, 163, 184, 0.1);
 }
 
 .customer-dashboard__login-help h3 {
-    color: #00b050;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 0 0 1rem 0;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 .customer-dashboard__login-help p {
-    margin: 0.5rem 0;
-    color: #666;
-    line-height: 1.5;
+    margin: 0.75rem 0;
+    color: #64748b;
+    line-height: 1.6;
+    font-weight: 500;
 }
 
 .customer-dashboard__login-help a {
-    color: #00b050;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.customer-dashboard__login-help a:hover {
+    color: #764ba2;
     text-decoration: underline;
 }
 
-/* Main Dashboard */
+/* Main Dashboard - Modern Card Design */
 .customer-dashboard__header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 2.5rem;
-    padding: 2rem;
-    background: #fff;
-    border-radius: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,176,80,0.08);
+    margin-bottom: 2rem;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 8px 32px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.customer-dashboard__header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
 }
 
 .customer-dashboard__welcome h1 {
-    color: #00b050;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-size: 2.5rem;
     font-weight: 800;
     margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
 }
 
 .customer-dashboard__welcome p {
-    color: #6b7280;
+    color: #64748b;
     font-size: 1.2rem;
     margin: 0;
+    font-weight: 500;
 }
 
 .customer-dashboard__header-actions {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
-/* Buttons */
+/* Modern Button Styles */
 .customer-dashboard__btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 1rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 16px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    position: relative;
+    overflow: hidden;
 }
 
 .customer-dashboard__btn--primary {
-    background: #00b050;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
 }
 
 .customer-dashboard__btn--primary:hover {
-    background: #00913d;
-    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
 }
 
 .customer-dashboard__btn--secondary {
-    background: #f1f5f9;
-    color: #475569;
+    background: rgba(255, 255, 255, 0.9);
+    color: #64748b;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
 .customer-dashboard__btn--secondary:hover {
-    background: #e2e8f0;
-    color: #334155;
+    background: rgba(255, 255, 255, 1);
+    color: #475569;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .customer-dashboard__btn--outline {
     background: transparent;
-    color: #00b050;
-    border: 2px solid #00b050;
+    color: #667eea;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .customer-dashboard__btn--outline:hover {
-    background: #00b050;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
+    border-color: transparent;
+    transform: translateY(-1px);
 }
 
 .customer-dashboard__btn--small {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
 }
 
-/* Metrics */
+/* Modern Metrics Grid */
 .customer-dashboard__metrics {
     margin-bottom: 3rem;
 }
 
 .customer-dashboard__metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
 }
 
 .customer-dashboard__metric {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 8px rgba(0,176,80,0.08);
+    gap: 1.25rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.08),
+        0 4px 16px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.customer-dashboard__metric:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        0 16px 48px rgba(0, 0, 0, 0.12),
+        0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.customer-dashboard__metric::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--metric-color, #667eea), var(--metric-color-alt, #764ba2));
 }
 
 .customer-dashboard__metric-icon {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #fff;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .customer-dashboard__metric-icon--projects {
-    background: #3b82f6;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    --metric-color: #3b82f6;
+    --metric-color-alt: #1d4ed8;
 }
 
 .customer-dashboard__metric-icon--active {
-    background: #10b981;
+    background: linear-gradient(135deg, #10b981, #059669);
+    --metric-color: #10b981;
+    --metric-color-alt: #059669;
 }
 
 .customer-dashboard__metric-icon--bids {
-    background: #f59e0b;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    --metric-color: #f59e0b;
+    --metric-color-alt: #d97706;
 }
 
 .customer-dashboard__metric-icon--spending {
-    background: #8b5cf6;
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    --metric-color: #8b5cf6;
+    --metric-color-alt: #7c3aed;
+}
+
+.customer-dashboard__metric-content h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1f2937, #374151);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.customer-dashboard__metric-content p {
+    margin: 0;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
 .customer-dashboard__metric-trend {
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
 }
 
 .customer-dashboard__metric-trend small {
@@ -2515,29 +2709,37 @@ document.addEventListener('DOMContentLoaded', function() {
     font-weight: 500;
 }
 
-/* Status Overview */
+/* Modern Status Overview */
 .customer-dashboard__status-overview {
     margin-top: 2rem;
-    padding: 1.5rem;
-    background: #fff;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 8px rgba(0,176,80,0.08);
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.08),
+        0 4px 16px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .customer-dashboard__status-title {
-    color: #1f2937;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 0 0 1rem 0;
+    background: linear-gradient(135deg, #1f2937, #374151);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem 0;
 }
 
 .customer-dashboard__status-bar {
-    height: 1rem;
-    background: #f1f5f9;
-    border-radius: 0.5rem;
+    height: 12px;
+    background: rgba(241, 245, 249, 0.8);
+    border-radius: 8px;
     overflow: hidden;
     display: flex;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .customer-dashboard__status-segment {
@@ -3789,6 +3991,152 @@ select.error:focus {
         max-width: none;
     }
 }
+
+/* Modern Enhancements & Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Smooth page load animations */
+.customer-dashboard__header {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.customer-dashboard__metric {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.customer-dashboard__metric:nth-child(1) { animation-delay: 0.1s; }
+.customer-dashboard__metric:nth-child(2) { animation-delay: 0.2s; }
+.customer-dashboard__metric:nth-child(3) { animation-delay: 0.3s; }
+.customer-dashboard__metric:nth-child(4) { animation-delay: 0.4s; }
+
+.customer-dashboard__project-card {
+    animation: slideInRight 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+/* Loading states */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+/* Improved focus states for accessibility */
+.customer-dashboard__btn:focus-visible,
+.customer-dashboard__input:focus-visible,
+button:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(241, 245, 249, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5a67d8, #6b46c1);
+}
+
+/* Selection styling */
+::selection {
+    background: rgba(102, 126, 234, 0.2);
+    color: #1f2937;
+}
+
+/* Improved notification styles */
+.customer-dashboard__notification {
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Modern card hover effects */
+.customer-dashboard__project-card,
+.customer-dashboard__metric,
+.customer-dashboard__status-overview {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Improved mobile experience */
+@media (max-width: 768px) {
+    .customer-dashboard__login-title {
+        font-size: 2rem;
+    }
+    
+    .customer-dashboard__welcome h1 {
+        font-size: 2rem;
+    }
+    
+    .customer-dashboard__metric {
+        padding: 1.5rem;
+    }
+    
+    .customer-dashboard__metric-icon {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+    
+    .customer-dashboard__metric-content h3 {
+        font-size: 1.5rem;
+    }
+}
 </style>
 
 <!-- Phase 2: Appointment Scheduling Modal -->
@@ -3915,8 +4263,5 @@ select.error:focus {
 </section>
 </div>
 </main>
-
-<?php include 'templates/footer.php'; ?>
-
 </body>
 </html> 
