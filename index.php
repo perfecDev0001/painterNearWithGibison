@@ -746,9 +746,11 @@ try {
                 }, 15000);
             }
             
-            // Enhanced form validation for simple form
+            // Enhanced form validation - only for simple form, not wizard
             const form = document.querySelector('form[method="post"]');
-            if (form && !form.classList.contains('quote-form')) {
+            const isWizardForm = form && form.querySelector('.quote-form__container');
+            
+            if (form && !isWizardForm) {
                 form.addEventListener('submit', function(e) {
                     const name = document.getElementById('name');
                     const email = document.getElementById('email');
@@ -759,24 +761,24 @@ try {
                     let isValid = true;
                     let errors = [];
                     
-                    // Validate required fields
-                    if (!name.value.trim()) {
+                    // Validate required fields - only if elements exist
+                    if (name && !name.value.trim()) {
                         errors.push('Name is required');
                         isValid = false;
                     }
                     
-                    if (!email.value.trim()) {
+                    if (email && !email.value.trim()) {
                         errors.push('Email is required');
                         isValid = false;
-                    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+                    } else if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
                         errors.push('Please enter a valid email address');
                         isValid = false;
                     }
                     
-                    if (!postcode.value.trim()) {
+                    if (postcode && !postcode.value.trim()) {
                         errors.push('Postcode is required');
                         isValid = false;
-                    } else {
+                    } else if (postcode && postcode.value.trim()) {
                         // UK postcode validation
                         const postcodeRegex = /^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i;
                         if (!postcodeRegex.test(postcode.value.trim())) {
@@ -785,15 +787,15 @@ try {
                         }
                     }
                     
-                    if (!jobType.value) {
+                    if (jobType && !jobType.value) {
                         errors.push('Please select a job type');
                         isValid = false;
                     }
                     
-                    if (!description.value.trim()) {
+                    if (description && !description.value.trim()) {
                         errors.push('Project description is required');
                         isValid = false;
-                    } else if (description.value.trim().length < 20) {
+                    } else if (description && description.value.trim().length < 20) {
                         errors.push('Please provide a more detailed description (at least 20 characters)');
                         isValid = false;
                     }
@@ -813,29 +815,31 @@ try {
                 });
             }
             
-            // Character counter for description
-            const description = document.getElementById('description');
-            if (description) {
-                const counter = document.createElement('div');
-                counter.className = 'form-text text-end';
-                counter.style.fontSize = '0.8rem';
-                description.parentNode.appendChild(counter);
-                
-                function updateCounter() {
-                    const length = description.value.length;
-                    counter.textContent = length + ' characters';
+            // Character counter for description - only for simple form
+            if (!isWizardForm) {
+                const description = document.getElementById('description');
+                if (description) {
+                    const counter = document.createElement('div');
+                    counter.className = 'form-text text-end';
+                    counter.style.fontSize = '0.8rem';
+                    description.parentNode.appendChild(counter);
                     
-                    if (length < 20) {
-                        counter.style.color = '#dc3545';
-                    } else if (length < 50) {
-                        counter.style.color = '#fd7e14';
-                    } else {
-                        counter.style.color = '#198754';
+                    function updateCounter() {
+                        const length = description.value.length;
+                        counter.textContent = length + ' characters';
+                        
+                        if (length < 20) {
+                            counter.style.color = '#dc3545';
+                        } else if (length < 50) {
+                            counter.style.color = '#fd7e14';
+                        } else {
+                            counter.style.color = '#198754';
+                        }
                     }
+                    
+                    description.addEventListener('input', updateCounter);
+                    updateCounter();
                 }
-                
-                description.addEventListener('input', updateCounter);
-                updateCounter();
             }
         });
     </script>
