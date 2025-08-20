@@ -94,3 +94,5 @@ comprehensive-test.php
 # But keep .htaccess files that are needed
 !.htaccess
 !*/logs/.htaccess
+data/*
+verify-fix.php

@@ -284,22 +284,19 @@ class GibsonAIService {
             ];
         }
         
-        // Ensure proper field mapping for Gibson AI
+        // Ensure proper field mapping for Gibson AI job-lead schema
         $gibsonLeadData = [
-            'uuid' => $leadData['uuid'] ?? $this->generateUuid(),
             'customer_name' => $leadData['customer_name'],
             'customer_email' => $leadData['customer_email'],
             'customer_phone' => $leadData['customer_phone'] ?? '',
-            'job_title' => $leadData['job_title'] ?? '',
-            'job_description' => $leadData['job_description'] ?? '',
-            'job_type' => $leadData['job_type'] ?? 'general',
-            'property_type' => $leadData['property_type'] ?? 'house',
-            'location' => $leadData['location'] ?? '',
-            'postcode' => $leadData['postcode'] ?? $leadData['location'] ?? '',
-            'status_id' => $leadData['status_id'] ?? 1, // Assuming 1 = open
-            'lead_source' => $leadData['lead_source'] ?? 'website',
-            'created_at' => $leadData['created_at'] ?? date('Y-m-d H:i:s')
+            'budget' => is_numeric($leadData['budget'] ?? null) ? (float)$leadData['budget'] : 1000.0, // Default budget
+            'description' => $leadData['job_description'] ?? $leadData['description'] ?? 'No description provided',
+            'max_claims' => (int)($leadData['max_claims'] ?? 5), // Default to 5 painters can claim
+            'preferred_start_date' => $leadData['preferred_start_date'] ?? date('Y-m-d', strtotime('+1 week')) // Default to next week
         ];
+        
+        // Add status_id (default to 1 = 'open' status)
+        $gibsonLeadData['status_id'] = (int)($leadData['status_id'] ?? 1);
         
         // Make API call with error tracking
         $result = $this->makeApiCall('/v1/-/job-lead', $gibsonLeadData, 'POST');

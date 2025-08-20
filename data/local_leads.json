@@ -893,5 +893,33 @@
         "uuid": "c8a8972a-b156-4edc-9135-d98fd0ac98fd",
         "id": "local_68a5181f5dcc1",
         "storage_method": "local_json"
+    },
+    {
+        "customer_name": "Test Customer Debug",
+        "customer_email": "debug-test@example.com",
+        "customer_phone": "+44 123 456 7890",
+        "job_title": "Interior Wall Painting",
+        "job_description": "Need to paint living room walls with premium paint",
+        "location": "SW1A 1AA",
+        "status": "open",
+        "created_at": "2025-08-20 02:08:02",
+        "updated_at": "2025-08-20 02:08:02",
+        "uuid": "23ac4c39-8b6f-4160-9dab-4f5d98e695cf",
+        "id": "local_68a51ff3161b9",
+        "storage_method": "local_json"
+    },
+    {
+        "customer_name": "Test Customer Debug",
+        "customer_email": "debug-test@example.com",
+        "customer_phone": "+44 123 456 7890",
+        "job_title": "Interior Wall Painting",
+        "job_description": "Need to paint living room walls with premium paint",
+        "location": "SW1A 1AA",
+        "status": "open",
+        "created_at": "2025-08-20 02:08:07",
+        "updated_at": "2025-08-20 02:08:07",
+        "uuid": "d8ada3e9-516e-478d-8e05-0c8373181b82",
+        "id": "local_68a51ff891a69",
+        "storage_method": "local_json"
     }
 ]
