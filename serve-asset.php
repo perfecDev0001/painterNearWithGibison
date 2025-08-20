@@ -35,11 +35,35 @@ $contentTypes = [
 
 $contentType = $contentTypes[$extension] ?? 'application/octet-stream';
 
-// Set headers
+// Get file modification time for ETag
+$lastModified = filemtime($fullPath);
+$etag = md5($fullPath . $lastModified);
+
+// Check if client has cached version
+$clientEtag = $_SERVER['HTTP_IF_NONE_MATCH'] ?? '';
+$clientModified = $_SERVER['HTTP_IF_MODIFIED_SINCE'] ?? '';
+
+if ($clientEtag === $etag || strtotime($clientModified) >= $lastModified) {
+    http_response_code(304);
+    exit;
+}
+
+// Set performance headers
 header('Content-Type: ' . $contentType);
 header('Content-Length: ' . filesize($fullPath));
-header('Cache-Control: public, max-age=31536000'); // 1 year cache
+header('Cache-Control: public, max-age=31536000, immutable'); // 1 year cache with immutable
+header('ETag: ' . $etag);
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $lastModified) . ' GMT');
 
-// Output the file
-readfile($fullPath);
+// Enable compression for text files
+if (in_array($extension, ['css', 'js']) && function_exists('gzencode') && strpos($_SERVER['HTTP_ACCEPT_ENCODING'] ?? '', 'gzip') !== false) {
+    $content = file_get_contents($fullPath);
+    $compressed = gzencode($content, 9);
+    header('Content-Encoding: gzip');
+    header('Content-Length: ' . strlen($compressed));
+    echo $compressed;
+} else {
+    // Output the file
+    readfile($fullPath);
+}
 ?> 

@@ -25,53 +25,90 @@ foreach ($requiredDirs as $dir) {
     }
 }
 
-// Load environment configuration
+// Load environment configuration with caching
 function loadEnvironment() {
-    // Load project.env file if it exists
-    $envFile = ROOT_PATH . '/project.env';
-    if (file_exists($envFile)) {
-        $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($lines as $line) {
-            if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
-                $parts = explode('=', $line, 2);
-                $key = trim($parts[0]);
-                $value = trim($parts[1]);
-                $_ENV[$key] = $value;
-                putenv($key . '=' . $value);
-            }
-        }
+    static $loaded = false;
+    if ($loaded) return; // Prevent multiple loads
+    
+    $cacheFile = ROOT_PATH . '/cache/env.cache';
+    $cacheValid = false;
+    
+    // Check if cache is valid (5 minutes)
+    if (file_exists($cacheFile)) {
+        $cacheData = json_decode(file_get_contents($cacheFile), true);
+        $cacheValid = ($cacheData && (time() - $cacheData['timestamp']) < 300);
     }
     
-    // Load .env file if it exists
-    $envFile = ROOT_PATH . '/.env';
-    if (file_exists($envFile)) {
-        $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($lines as $line) {
-            if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
-                $parts = explode('=', $line, 2);
-                $key = trim($parts[0]);
-                $value = trim($parts[1]);
-                $_ENV[$key] = $value;
-                putenv($key . '=' . $value);
+    if ($cacheValid) {
+        // Load from cache
+        foreach ($cacheData['env'] as $key => $value) {
+            $_ENV[$key] = $value;
+            putenv($key . '=' . $value);
+        }
+    } else {
+        // Load from files and cache
+        $envData = [];
+        
+        // Load project.env file if it exists
+        $envFile = ROOT_PATH . '/project.env';
+        if (file_exists($envFile)) {
+            $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($lines as $line) {
+                if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
+                    $parts = explode('=', $line, 2);
+                    $key = trim($parts[0]);
+                    $value = trim($parts[1]);
+                    $envData[$key] = $value;
+                    $_ENV[$key] = $value;
+                    putenv($key . '=' . $value);
+                }
             }
         }
+        
+        // Load .env file if it exists
+        $envFile = ROOT_PATH . '/.env';
+        if (file_exists($envFile)) {
+            $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($lines as $line) {
+                if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
+                    $parts = explode('=', $line, 2);
+                    $key = trim($parts[0]);
+                    $value = trim($parts[1]);
+                    $envData[$key] = $value;
+                    $_ENV[$key] = $value;
+                    putenv($key . '=' . $value);
+                }
+            }
+        }
+        
+        // Load gibson environment if it exists
+        $gibsonEnvFile = ROOT_PATH . '/.gibson-env';
+        if (file_exists($gibsonEnvFile)) {
+            $lines = file($gibsonEnvFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($lines as $line) {
+                if (strpos($line, '=') !== false && strpos($line, 'export ') === 0) {
+                    $line = substr($line, 7); // Remove 'export '
+                    $parts = explode('=', $line, 2);
+                    $key = trim($parts[0]);
+                    $value = trim($parts[1], '"');
+                    $envData[$key] = $value;
+                    $_ENV[$key] = $value;
+                    putenv($key . '=' . $value);
+                }
+            }
+        }
+        
+        // Cache the environment data
+        if (!file_exists(dirname($cacheFile))) {
+            mkdir(dirname($cacheFile), 0755, true);
+        }
+        file_put_contents($cacheFile, json_encode([
+            'env' => $envData,
+            'timestamp' => time()
+        ]));
     }
     
-    // Load gibson environment if it exists
-    $gibsonEnvFile = ROOT_PATH . '/.gibson-env';
-    if (file_exists($gibsonEnvFile)) {
-        $lines = file($gibsonEnvFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($lines as $line) {
-            if (strpos($line, '=') !== false && strpos($line, 'export ') === 0) {
-                $line = substr($line, 7); // Remove 'export '
-                $parts = explode('=', $line, 2);
-                $key = trim($parts[0]);
-                $value = trim($parts[1], '"');
-                $_ENV[$key] = $value;
-                putenv($key . '=' . $value);
-            }
-        }
-    }
+    $loaded = true;
 }
 
 // Initialize environment

@@ -879,5 +879,19 @@
         "uuid": "29d7affb-f33d-47b6-9283-3bfbf4e67527",
         "id": "local_68a515ad0f1ad",
         "storage_method": "local_json"
+    },
+    {
+        "customer_name": "kewwwr",
+        "customer_email": "hamkaloyaroslav@gmail.com",
+        "customer_phone": "+44 2071 234 567",
+        "job_title": "Commercial",
+        "job_description": "fgrhrhrehhdfhdfgsg",
+        "location": "W1A 6HQ",
+        "status": "open",
+        "created_at": "2025-08-20 01:34:38",
+        "updated_at": "2025-08-20 01:34:38",
+        "uuid": "c8a8972a-b156-4edc-9135-d98fd0ac98fd",
+        "id": "local_68a5181f5dcc1",
+        "storage_method": "local_json"
     }
 ]

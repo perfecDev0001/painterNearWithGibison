@@ -38,26 +38,22 @@ try {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     
-    // Test Gibson AI connectivity with timeout
+    // Fast Gibson AI connectivity check with caching
     $gibsonEnabled = (getenv('GIBSON_ENABLED') !== 'false' && $_ENV['GIBSON_ENABLED'] !== 'false');
     
     if ($gibsonEnabled) {
-        try {
-            // Set a short timeout for Gibson AI test
-            $originalTimeout = ini_get('default_socket_timeout');
-            ini_set('default_socket_timeout', 5); // 5 second timeout
-            
-            // Try to load and test Gibson AI
-            require_once 'core/GibsonAIService.php';
-            $gibson = new GibsonAIService();
-            
-            // Quick connectivity test - try to get roles (lightweight operation)
-            $testResult = $gibson->makeApiCallPublic('/v1/-/role', null, 'GET');
-            
-            if ($testResult['success'] || $testResult['http_code'] === 200) {
-                $gibson_status = 'connected';
-                
-                // Load the full wizard system
+        // Check cached Gibson status first (avoid API calls on every page load)
+        $cacheFile = __DIR__ . '/cache/gibson_status.cache';
+        $cacheValid = false;
+        
+        if (file_exists($cacheFile)) {
+            $cacheData = json_decode(file_get_contents($cacheFile), true);
+            $cacheValid = ($cacheData && (time() - $cacheData['timestamp']) < 300); // 5 minute cache
+        }
+        
+        if ($cacheValid) {
+            $gibson_status = $cacheData['status'];
+            if ($gibson_status === 'connected') {
                 require_once 'core/Wizard.php';
                 $wizard = new Wizard();
                 $wizard->handleRequest();
@@ -65,22 +61,66 @@ try {
                 $stepData = $wizard->getStepData();
                 $progress = $wizard->getProgress();
                 $useWizard = true;
-                
-            } else {
-                $gibson_status = 'api_error';
-                error_log('Gibson AI API test failed: ' . ($testResult['error'] ?? 'Unknown error'));
             }
-            
-            // Restore original timeout
-            ini_set('default_socket_timeout', $originalTimeout);
-            
-        } catch (Exception $e) {
-            $gibson_status = 'connection_failed';
-            error_log('Gibson AI connection failed: ' . $e->getMessage());
-            
-            // Restore timeout on error
-            if (isset($originalTimeout)) {
+        } else {
+            try {
+                // Set very short timeout for connectivity test
+                $originalTimeout = ini_get('default_socket_timeout');
+                ini_set('default_socket_timeout', 2); // Reduced to 2 seconds
+                
+                // Try to load and test Gibson AI
+                require_once 'core/GibsonAIService.php';
+                $gibson = new GibsonAIService();
+                
+                // Quick connectivity test with minimal timeout
+                $testResult = $gibson->makeApiCallPublic('/v1/-/role', null, 'GET');
+                
+                if ($testResult['success'] || $testResult['http_code'] === 200) {
+                    $gibson_status = 'connected';
+                    
+                    // Load the full wizard system
+                    require_once 'core/Wizard.php';
+                    $wizard = new Wizard();
+                    $wizard->handleRequest();
+                    $currentStep = $wizard->getCurrentStep();
+                    $stepData = $wizard->getStepData();
+                    $progress = $wizard->getProgress();
+                    $useWizard = true;
+                    
+                } else {
+                    $gibson_status = 'api_error';
+                    error_log('Gibson AI API test failed: ' . ($testResult['error'] ?? 'Unknown error'));
+                }
+                
+                // Cache the result
+                if (!file_exists(dirname($cacheFile))) {
+                    mkdir(dirname($cacheFile), 0755, true);
+                }
+                file_put_contents($cacheFile, json_encode([
+                    'status' => $gibson_status,
+                    'timestamp' => time()
+                ]));
+                
+                // Restore original timeout
                 ini_set('default_socket_timeout', $originalTimeout);
+                
+            } catch (Exception $e) {
+                $gibson_status = 'connection_failed';
+                error_log('Gibson AI connection failed: ' . $e->getMessage());
+                
+                // Cache the failed status
+                if (!file_exists(dirname($cacheFile))) {
+                    mkdir(dirname($cacheFile), 0755, true);
+                }
+                file_put_contents($cacheFile, json_encode([
+                    'status' => 'connection_failed',
+                    'timestamp' => time()
+                ]));
+                
+                // Restore timeout on error
+                if (isset($originalTimeout)) {
+                    ini_set('default_socket_timeout', $originalTimeout);
+                }
             }
         }
     } else {
@@ -209,11 +249,26 @@ try {
     
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     
-    <!-- Stylesheets -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Critical CSS - Load immediately -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    
+    <!-- Non-critical CSS - Load asynchronously -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"></noscript>
+    
+    <!-- Critical performance optimization -->
+    <script>
+        // Preload critical resources immediately
+        (function() {
+            var link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'script';
+            link.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js';
+            document.head.appendChild(link);
+        })();
+    </script>
     
     <?php if (file_exists('serve-asset.php')): ?>
         <link rel="stylesheet" href="serve-asset.php?file=css/style.css">
@@ -724,12 +779,15 @@ try {
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts - Load asynchronously for better performance -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
     
     <?php if (file_exists('serve-asset.php')): ?>
         <script src="serve-asset.php?file=js/main.js" defer></script>
     <?php endif; ?>
+    
+    <!-- Preload critical JavaScript -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" as="script">
     
     <script>
         // Enhanced functionality

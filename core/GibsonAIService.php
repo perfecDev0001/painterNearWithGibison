@@ -677,12 +677,12 @@ class GibsonAIService {
                     'X-Gibson-API-Key: ' . $this->apiKey // Use X-Gibson-API-Key as per OpenAPI spec
                 ];
                 
-                // Configure cURL for production
+                // Configure cURL for production with optimized timeouts
                 curl_setopt_array($curl, [
                     CURLOPT_URL => $url,
                     CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_TIMEOUT => $this->config['api_settings']['timeout'] ?? 30,
-                    CURLOPT_CONNECTTIMEOUT => $this->config['api_settings']['connection_timeout'] ?? 10,
+                    CURLOPT_TIMEOUT => $this->config['api_settings']['timeout'] ?? 15, // Reduced from 30 to 15
+                    CURLOPT_CONNECTTIMEOUT => $this->config['api_settings']['connection_timeout'] ?? 5, // Reduced from 10 to 5
                     CURLOPT_HTTPHEADER => $headers,
                     CURLOPT_CUSTOMREQUEST => $method,
                     CURLOPT_SSL_VERIFYPEER => $this->config['api_settings']['verify_ssl'] ?? true,

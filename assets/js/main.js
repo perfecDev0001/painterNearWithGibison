@@ -234,9 +234,11 @@
                         const perfData = performance.getEntriesByType('navigation')[0];
                         const pageLoadTime = perfData.loadEventEnd - perfData.startTime;
                         
-                        // Log performance data
-                        if (pageLoadTime > 3000) {
+                        // Log performance data only if significantly slow
+                        if (pageLoadTime > 5000) {
                             console.warn('Page load time is slow:', Math.round(pageLoadTime) + 'ms');
+                        } else if (pageLoadTime > 2000) {
+                            console.info('Page load time:', Math.round(pageLoadTime) + 'ms');
                         }
                         
                         // Send performance data to analytics if available
