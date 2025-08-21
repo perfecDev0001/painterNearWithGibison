@@ -57,7 +57,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($errors)) {
         $loginResult = $auth->login($email, $password);
         if ($loginResult && isset($loginResult['success']) && $loginResult['success']) {
-            header("Location: dashboard.php");
+            // Get user info to determine redirect
+            $user = $auth->getCurrentUser();
+            
+            // Route to appropriate dashboard based on user type
+            switch ($user['type']) {
+                case 'customer':
+                    header("Location: customer-dashboard.php");
+                    break;
+                case 'vendor':
+                    header("Location: vendor-dashboard.php");
+                    break;
+                case 'admin':
+                    header("Location: admin-dashboard.php");
+                    break;
+                case 'painter':
+                default:
+                    header("Location: dashboard.php");
+                    break;
+            }
             exit();
         } else {
             $errors[] = "Invalid email or password";

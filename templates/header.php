@@ -82,9 +82,26 @@
                     <li class="nav-item">
                         <a class="nav-link<?php echo (strpos($_SERVER['REQUEST_URI'], 'how-it-works') !== false) ? ' active' : ''; ?>" href="how-it-works.php">How it Works</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link<?php echo (strpos($_SERVER['REQUEST_URI'], 'customer-dashboard') !== false) ? ' active' : ''; ?>" href="customer-dashboard.php">My Projects</a>
-                    </li>
+                    <?php
+                    // Check if user is logged in
+                    session_start();
+                    $isLoggedIn = isset($_SESSION['user_id']) || isset($_SESSION['painter_id']) || isset($_SESSION['customer_id']) || isset($_SESSION['vendor_id']) || isset($_SESSION['admin_id']);
+                    
+                    if ($isLoggedIn): ?>
+                        <li class="nav-item">
+                            <a class="nav-link<?php echo (strpos($_SERVER['REQUEST_URI'], 'dashboard') !== false) ? ' active' : ''; ?>" href="dashboard.php">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout</a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link<?php echo (strpos($_SERVER['REQUEST_URI'], 'register') !== false) ? ' active' : ''; ?>" href="register-hub.php">Join Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link<?php echo (strpos($_SERVER['REQUEST_URI'], 'login') !== false) ? ' active' : ''; ?>" href="login.php">Login</a>
+                        </li>
+                    <?php endif; ?>
                     <li class="nav-item">
                         <a class="nav-link<?php echo (strpos($_SERVER['REQUEST_URI'], 'contact') !== false) ? ' active' : ''; ?>" href="contact.php">Contact</a>
                     </li>

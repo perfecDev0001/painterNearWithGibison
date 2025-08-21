@@ -120,15 +120,31 @@ class GibsonAuth {
     }
 
     public function register($userData) {
-        // Transform first_name + last_name to name field if needed
-        if (isset($userData['first_name']) || isset($userData['last_name'])) {
-            $userData['name'] = trim(($userData['first_name'] ?? '') . ' ' . ($userData['last_name'] ?? ''));
-            unset($userData['first_name']);
-            unset($userData['last_name']);
-        }
+        // Handle different user types
+        $userType = $userData['user_type'] ?? 'customer';
         
-        // Let GibsonAIService handle password validation and hashing
-        return $this->gibson->registerUser($userData);
+        switch ($userType) {
+            case 'customer':
+                return $this->dataAccess->createCustomer($userData);
+                
+            case 'vendor':
+                return $this->dataAccess->createVendor($userData);
+                
+            case 'painter':
+                // Use existing painter registration
+                return $this->dataAccess->createPainter($userData);
+                
+            default:
+                // Generic user registration
+                // Transform first_name + last_name to name field if needed
+                if (isset($userData['first_name']) || isset($userData['last_name'])) {
+                    $userData['name'] = trim(($userData['first_name'] ?? '') . ' ' . ($userData['last_name'] ?? ''));
+                    unset($userData['first_name']);
+                    unset($userData['last_name']);
+                }
+                
+                return $this->gibson->registerUser($userData);
+        }
     }
 
     public function getCurrentUser() {
@@ -160,6 +176,15 @@ class GibsonAuth {
                 'username' => $_SESSION['admin_username'],
                 'email' => $_SESSION['admin_email'],
                 'type' => 'admin'
+            ];
+        }
+
+        if (isset($_SESSION['vendor_id'])) {
+            return [
+                'id' => $_SESSION['vendor_id'],
+                'business_name' => $_SESSION['business_name'],
+                'email' => $_SESSION['user_email'],
+                'type' => 'vendor'
             ];
         }
 

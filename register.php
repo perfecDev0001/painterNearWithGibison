@@ -330,7 +330,13 @@ if (file_exists('templates/header.php')) {
   </section>
   
   <section class="register-main">
-    <div class="register-main__container" style="max-width:600px;margin:2.5rem auto;background:#fff;border-radius:1.5rem;box-shadow:0 8px 32px rgba(0,176,80,0.10),0 1.5px 8px rgba(0,0,0,0.04);padding:2.5rem 2rem;">
+    <div style="max-width:600px;margin:0 auto;padding:0 1rem;">
+      <a href="register-hub.php" style="display:inline-flex;align-items:center;color:#7f8c8d;text-decoration:none;margin-bottom:1rem;font-weight:500;">
+        <i class="bi bi-arrow-left" style="margin-right:0.5rem;"></i>
+        Back to Registration Options
+      </a>
+    </div>
+    <div class="register-main__container" style="max-width:600px;margin:0 auto 2.5rem;background:#fff;border-radius:1.5rem;box-shadow:0 8px 32px rgba(0,176,80,0.10),0 1.5px 8px rgba(0,0,0,0.04);padding:2.5rem 2rem;">
       <?php
 // Note: Password security handled by Gibson AI authentication service
  if ($success): ?>

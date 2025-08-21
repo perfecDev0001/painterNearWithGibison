@@ -136,6 +136,27 @@ class GibsonAIService {
         return $this->makeApiCall('/v1/-/user', $cleanUserData, 'POST');
     }
 
+    public function getUserByEmail($email) {
+        if ($this->useMockService) {
+            return $this->mockService->getUserByEmail($email);
+        }
+        
+        // Get all users and filter by email (complex WHERE clauses cause HTTP 500)
+        $userResult = $this->makeApiCall('/v1/-/user');
+        if (!$userResult['success'] || empty($userResult['data'])) {
+            return ['success' => false, 'error' => 'Could not retrieve users'];
+        }
+        
+        // Find user by email
+        foreach ($userResult['data'] as $userData) {
+            if ($userData['email'] === $email) {
+                return ['success' => true, 'data' => $userData];
+            }
+        }
+        
+        return ['success' => false, 'error' => 'User not found'];
+    }
+
     public function validateSession($token) {
         if ($this->useMockService) {
             // Mock validation - always return success for development

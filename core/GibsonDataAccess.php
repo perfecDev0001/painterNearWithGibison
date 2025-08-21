@@ -976,5 +976,314 @@ class GibsonDataAccess {
             return ['success' => false, 'error' => 'Failed to store painter locally'];
         }
     }
+    
+    // ==================== USER MANAGEMENT METHODS ====================
+    
+    /**
+     * Get user by email address
+     */
+    public function getUserByEmail($email) {
+        // Try Gibson AI first
+        $result = $this->gibson->getUserByEmail($email);
+        if ($result['success'] && !empty($result['data'])) {
+            return $result['data'];
+        }
+        
+        // Fallback to local database if available
+        if ($this->dbConnection) {
+            $stmt = $this->dbConnection->prepare("SELECT * FROM users WHERE email = ?");
+            if ($stmt) {
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if ($result && $result->num_rows > 0) {
+                    return $result->fetch_assoc();
+                }
+                $stmt->close();
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Create a new customer
+     */
+    public function createCustomer($customerData) {
+        // Prepare user data for Gibson AI
+        $userData = [
+            'name' => $customerData['customer_name'] ?? ($customerData['first_name'] . ' ' . $customerData['last_name']),
+            'email' => $customerData['email'],
+            'password' => $customerData['password'],
+            'role_id' => 4, // Customer role
+            'user_type' => 'customer'
+        ];
+        
+        // Create user in Gibson AI
+        $userResult = $this->gibson->registerUser($userData);
+        if (!$userResult['success']) {
+            return $userResult;
+        }
+        
+        // Create customer profile
+        $customerProfile = [
+            'user_id' => $userResult['data']['id'],
+            'first_name' => $customerData['first_name'],
+            'last_name' => $customerData['last_name'],
+            'phone' => $customerData['phone'],
+            'address' => $customerData['address'],
+            'city' => $customerData['city'],
+            'postcode' => $customerData['postcode'],
+            'status' => 'active',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        
+        // Try to create customer profile in Gibson AI
+        $profileResult = $this->gibson->makeApiCall('/v1/-/customer-profile', $customerProfile, 'POST');
+        if ($profileResult['success']) {
+            return ['success' => true, 'data' => array_merge($userResult['data'], $profileResult['data'])];
+        }
+        
+        // Fallback to local storage
+        return $this->createLocalCustomer($customerProfile);
+    }
+    
+    /**
+     * Create a new vendor
+     */
+    public function createVendor($vendorData) {
+        // Prepare user data for Gibson AI
+        $userData = [
+            'name' => $vendorData['business_name'],
+            'email' => $vendorData['email'],
+            'password' => $vendorData['password'],
+            'role_id' => 5, // Vendor role
+            'user_type' => 'vendor'
+        ];
+        
+        // Create user in Gibson AI
+        $userResult = $this->gibson->registerUser($userData);
+        if (!$userResult['success']) {
+            return $userResult;
+        }
+        
+        // Create vendor profile
+        $vendorProfile = [
+            'user_id' => $userResult['data']['id'],
+            'business_name' => $vendorData['business_name'],
+            'contact_name' => $vendorData['contact_name'],
+            'phone' => $vendorData['phone'],
+            'address' => $vendorData['address'],
+            'city' => $vendorData['city'],
+            'postcode' => $vendorData['postcode'],
+            'business_type' => $vendorData['business_type'],
+            'tax_number' => $vendorData['tax_number'] ?? '',
+            'website' => $vendorData['website'] ?? '',
+            'description' => $vendorData['description'] ?? '',
+            'status' => $vendorData['status'] ?? 'pending',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        
+        // Try to create vendor profile in Gibson AI
+        $profileResult = $this->gibson->makeApiCall('/v1/-/vendor-profile', $vendorProfile, 'POST');
+        if ($profileResult['success']) {
+            return ['success' => true, 'data' => array_merge($userResult['data'], $profileResult['data'])];
+        }
+        
+        // Fallback to local storage
+        return $this->createLocalVendor($vendorProfile);
+    }
+    
+    /**
+     * Get customer by ID
+     */
+    public function getCustomerById($id) {
+        $result = $this->gibson->makeApiCall("/v1/-/customer-profile/{$id}");
+        if ($result['success']) {
+            return $result['data'];
+        }
+        
+        // Fallback to local database
+        if ($this->dbConnection) {
+            $stmt = $this->dbConnection->prepare("SELECT * FROM customer_profiles WHERE id = ? OR user_id = ?");
+            if ($stmt) {
+                $stmt->bind_param("ss", $id, $id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if ($result && $result->num_rows > 0) {
+                    return $result->fetch_assoc();
+                }
+                $stmt->close();
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Get vendor by ID
+     */
+    public function getVendorById($id) {
+        $result = $this->gibson->makeApiCall("/v1/-/vendor-profile/{$id}");
+        if ($result['success']) {
+            return $result['data'];
+        }
+        
+        // Fallback to local database
+        if ($this->dbConnection) {
+            $stmt = $this->dbConnection->prepare("SELECT * FROM vendor_profiles WHERE id = ? OR user_id = ?");
+            if ($stmt) {
+                $stmt->bind_param("ss", $id, $id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if ($result && $result->num_rows > 0) {
+                    return $result->fetch_assoc();
+                }
+                $stmt->close();
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Update customer profile
+     */
+    public function updateCustomer($customerId, $data) {
+        $result = $this->gibson->makeApiCall("/v1/-/customer-profile/{$customerId}", $data, 'PATCH');
+        if ($result['success']) {
+            return $result;
+        }
+        
+        // Fallback to local database
+        if ($this->dbConnection) {
+            $fields = [];
+            $values = [];
+            $types = '';
+            
+            foreach ($data as $key => $value) {
+                $fields[] = "$key = ?";
+                $values[] = $value;
+                $types .= 's';
+            }
+            
+            if (!empty($fields)) {
+                $values[] = $customerId;
+                $types .= 's';
+                
+                $sql = "UPDATE customer_profiles SET " . implode(', ', $fields) . " WHERE id = ?";
+                $stmt = $this->dbConnection->prepare($sql);
+                if ($stmt) {
+                    $stmt->bind_param($types, ...$values);
+                    $success = $stmt->execute();
+                    $stmt->close();
+                    
+                    return ['success' => $success];
+                }
+            }
+        }
+        
+        return ['success' => false, 'error' => 'Update failed'];
+    }
+    
+    /**
+     * Update vendor profile
+     */
+    public function updateVendor($vendorId, $data) {
+        $result = $this->gibson->makeApiCall("/v1/-/vendor-profile/{$vendorId}", $data, 'PATCH');
+        if ($result['success']) {
+            return $result;
+        }
+        
+        // Fallback to local database
+        if ($this->dbConnection) {
+            $fields = [];
+            $values = [];
+            $types = '';
+            
+            foreach ($data as $key => $value) {
+                $fields[] = "$key = ?";
+                $values[] = $value;
+                $types .= 's';
+            }
+            
+            if (!empty($fields)) {
+                $values[] = $vendorId;
+                $types .= 's';
+                
+                $sql = "UPDATE vendor_profiles SET " . implode(', ', $fields) . " WHERE id = ?";
+                $stmt = $this->dbConnection->prepare($sql);
+                if ($stmt) {
+                    $stmt->bind_param($types, ...$values);
+                    $success = $stmt->execute();
+                    $stmt->close();
+                    
+                    return ['success' => $success];
+                }
+            }
+        }
+        
+        return ['success' => false, 'error' => 'Update failed'];
+    }
+    
+    // ==================== LOCAL STORAGE FALLBACKS ====================
+    
+    /**
+     * Local customer storage fallback
+     */
+    private function createLocalCustomer($customerData) {
+        $localPath = __DIR__ . '/../data/local_customers.json';
+        $dir = dirname($localPath);
+        
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+        
+        $customers = [];
+        if (file_exists($localPath)) {
+            $content = file_get_contents($localPath);
+            $customers = json_decode($content, true) ?: [];
+        }
+        
+        $customerData['id'] = 'local_customer_' . uniqid();
+        $customerData['storage_method'] = 'local_json';
+        $customers[] = $customerData;
+        
+        if (file_put_contents($localPath, json_encode($customers, JSON_PRETTY_PRINT))) {
+            return ['success' => true, 'data' => $customerData];
+        } else {
+            return ['success' => false, 'error' => 'Failed to store customer locally'];
+        }
+    }
+    
+    /**
+     * Local vendor storage fallback
+     */
+    private function createLocalVendor($vendorData) {
+        $localPath = __DIR__ . '/../data/local_vendors.json';
+        $dir = dirname($localPath);
+        
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+        
+        $vendors = [];
+        if (file_exists($localPath)) {
+            $content = file_get_contents($localPath);
+            $vendors = json_decode($content, true) ?: [];
+        }
+        
+        $vendorData['id'] = 'local_vendor_' . uniqid();
+        $vendorData['storage_method'] = 'local_json';
+        $vendors[] = $vendorData;
+        
+        if (file_put_contents($localPath, json_encode($vendors, JSON_PRETTY_PRINT))) {
+            return ['success' => true, 'data' => $vendorData];
+        } else {
+            return ['success' => false, 'error' => 'Failed to store vendor locally'];
+        }
+    }
 
 } 
