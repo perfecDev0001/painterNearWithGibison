@@ -136,12 +136,10 @@ include 'templates/header.php';
   </script>
 </head>
 <main role="main">
-  <section class="postjob-hero hero">
+  <section class="postjob-hero hero postjob-main">
     <h1 class="hero__title">Post a Painting Job</h1>
     <p class="hero__subtitle">Describe your painting project and get free quotes from qualified local painters.</p>
-  </section>
-  
-  <section class="postjob-main">
+    
     <div class="postjob-main__container">
       <?php if ($success): ?>
         <div class="postjob-main__success" role="alert">

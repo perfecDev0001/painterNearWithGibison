@@ -100,12 +100,10 @@ if (file_exists('templates/header.php')) {
   </script>
 </head>
 <main role="main">
-  <section class="login-hero hero">
+  <section class="login-hero hero login-main">
     <h1 class="hero__title">Painter Login</h1>
     <p class="hero__subtitle">Access your account to manage leads and bids.</p>
-  </section>
-  
-  <section class="login-main">
+    
     <div class="login-main__container" style="max-width:500px;margin:2.5rem auto;background:#fff;border-radius:1.5rem;box-shadow:0 8px 32px rgba(0,176,80,0.10),0 1.5px 8px rgba(0,0,0,0.04);padding:2.5rem 2rem;">
       <?php
 // Note: Password security handled by Gibson AI authentication service

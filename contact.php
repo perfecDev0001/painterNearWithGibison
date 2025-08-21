@@ -376,12 +376,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </head>
 <main role="main">
-  <section class="contact-hero hero">
+  <section class="contact-hero hero contact-main">
     <h1 class="hero__title">Contact Us</h1>
     <p class="hero__subtitle">We're here to help. Reach out with any questions or feedback.</p>
-  </section>
-  
-  <section class="contact-main">
+    
     <div class="contact-main__container" style="max-width:600px;margin:2.5rem auto;background:#fff;border-radius:1.5rem;box-shadow:0 8px 32px rgba(0,176,80,0.10),0 1.5px 8px rgba(0,0,0,0.04);padding:2.5rem 2rem;">
       
       <?php if ($contact_success): ?>

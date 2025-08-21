@@ -324,12 +324,10 @@ if (file_exists('templates/header.php')) {
   </script>
 </head>
 <main role="main">
-  <section class="register-hero hero">
+  <section class="register-hero hero register-main">
     <h1 class="hero__title">Register as Painter</h1>
     <p class="hero__subtitle">Join our network and start receiving painting job leads.</p>
-  </section>
-  
-  <section class="register-main">
+    
     <div style="max-width:600px;margin:0 auto;padding:0 1rem;">
       <a href="register-hub.php" style="display:inline-flex;align-items:center;color:#7f8c8d;text-decoration:none;margin-bottom:1rem;font-weight:500;">
         <i class="bi bi-arrow-left" style="margin-right:0.5rem;"></i>

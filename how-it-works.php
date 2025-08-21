@@ -14,13 +14,11 @@ include 'templates/header.php';
 ?>
 
 <main role="main">
-  <section class="howitworks-hero hero">
+  <section class="howitworks-hero hero howitworks-steps">
     <h1 class="hero__title">How It Works</h1>
     <p class="hero__subtitle">Get a painter quote in minutes. Simple, fast, and free.</p>
-  </section>
-
-  <!-- Main Steps Section -->
-  <section class="howitworks-steps">
+    
+    <!-- Main Steps Section -->
     <div class="howitworks-steps__container">
       <ol class="howitworks-steps__list">
         <li class="howitworks-steps__item" data-step="1">

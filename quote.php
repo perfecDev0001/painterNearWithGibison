@@ -55,12 +55,10 @@ try {
     </head>
     <body>
         <main role="main">
-            <section class="quote-hero hero">
+            <section class="quote-hero hero quote-form-section">
                 <h1 class="hero__title">Get Your Free Quote</h1>
                 <p class="hero__subtitle">Connect with professional painters in your area</p>
-            </section>
-            
-            <section class="quote-form-section">
+                
                 <div class="quote-form-container">
                     <form class="quote-form" action="/" method="post">
                         <div class="quote-form__group">

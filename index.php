@@ -543,16 +543,12 @@ try {
 
     <main role="main" style="padding-top: 76px;">
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero py-5">
             <div class="container">
                 <h1>Find Local Painters</h1>
                 <p>Get free quotes from verified painters in your area</p>
-            </div>
-        </section>
-
-        <!-- Quote Form Section -->
-        <section class="py-5">
-            <div class="container">
+                
+                <!-- Quote Form Section -->
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div class="quote-form">
