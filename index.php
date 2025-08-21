@@ -530,9 +530,25 @@ try {
                     <li class="nav-item">
                         <a class="nav-link" href="how-it-works.php">How it Works</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="customer-dashboard.php">My Projects</a>
-                    </li>
+                    <?php
+                    // Check if user is logged in
+                    $isLoggedIn = isset($_SESSION['user_id']) || isset($_SESSION['painter_id']) || isset($_SESSION['customer_id']) || isset($_SESSION['vendor_id']) || isset($_SESSION['admin_id']);
+                    
+                    if ($isLoggedIn): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.php">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout</a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="register-hub.php">Join Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Login</a>
+                        </li>
+                    <?php endif; ?>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.php">Contact</a>
                     </li>
